@@ -22,7 +22,7 @@ export default {
             lists:[
                 {id:123,title:'超级小裙子',image:'https://img.alicdn.com/bao/uploaded/i2/138071847/TB2LUnplVXXXXc9XXXXXXXXXXXX_!!138071847.png_200x200q90.jpg_.webp',cselect:0, tselect:1,cnumber:12,tnumber:2},
                 {id:233,title:'超级小裙子',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
-                {title:'超级小裙子',url:'/'},
+                {title:'饼干',url:'/'},
                 {title:'超级小裙子',url:'/'},
                 {title:'超级小裙子',url:'/'},
                 {title:'超级小裙子',url:'/'},

@@ -12,7 +12,7 @@
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
                     <br><br>
-                    年龄：<input type="text" name="" id="" v-model="user.userAge"><br><br>
+                    年龄：<input type="number" name="" id="" v-model="user.userAge"><br><br>
                     手机号：<input type="text" v-model="user.userTel"><br><br>
                     您的密保问题:请问您的妈妈是谁?<br>
                     密保回答：<input type="text" v-model="user.userAnswer"><br><br>
