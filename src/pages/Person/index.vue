@@ -15,7 +15,7 @@
         <div> 手机号：<input type="text" v-model="user.userTel" class="changeinput"></div>
         <div>您的密保问题:请问您的妈妈是谁?</div>
         <div>密保回答：<input type="text" v-model="user.userAnswer" class="changeinput"></div>
-        <div><button>修改</button></div>
+        <div><button @click="changeif">修改</button></div>
         </form>
     </div>
     </div>
@@ -40,6 +40,24 @@ export default {
             userAnswer:''
             }
         }
+     },
+     methods:{
+         changeif(){
+           let _this=this;
+           this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/user/changeInformation",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                }, 
+                data: JSON.stringify(_this.user),              
+            }).then (function (response) {
+                eventBus.$emit("sisterSaid",response.data);
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+            });   
+         }
      },
      mounted:function(){
       let _this=this;

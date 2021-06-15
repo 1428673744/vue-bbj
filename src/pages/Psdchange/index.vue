@@ -30,13 +30,18 @@ export default {
        let _this=this;
       this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/change",
+                url: "http://localhost:8080/bbj/user/changePassword",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },
                 data: JSON.stringify(_this.pwd),         
             }).then (function (res) {
-              console.log(res.data)
+                  if(res.data.code==200)
+                {
+                    alert(res.data.msg)
+                }else if(res.data.code==500){
+                    alert(res.data.msg)
+                }
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
@@ -53,7 +58,7 @@ export default {
                 },
                 data: JSON.stringify(_this.pwd),                           
             }).then (function (response) {
-                eventBus.$emit("sisterSaid",response.data);
+                eventBus.$emit("sisterSaid",response.data.userAccount);
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;

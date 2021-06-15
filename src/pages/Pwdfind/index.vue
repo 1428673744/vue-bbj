@@ -38,6 +38,12 @@ methods:{
                 data: JSON.stringify(_this.pwd),              
             }).then (function (res) {
                 console.log(res.data);
+                if(res.data.code==200)
+                {
+                    alert(res.data.msg)
+                }else if(res.data.code==500){
+                    alert(res.data.msg)
+                }
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;

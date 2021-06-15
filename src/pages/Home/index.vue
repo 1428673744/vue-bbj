@@ -63,7 +63,7 @@ export default {
                 },              
             }).then (function (response) {
                 console.log(response.data);
-                _this.name=response.data;
+                _this.name=response.data.userAccount;
                 // console.log('我是'+_this.name)
                 eventBus.$emit("sisterSaid",_this.name);
             }).catch (function (error) {
