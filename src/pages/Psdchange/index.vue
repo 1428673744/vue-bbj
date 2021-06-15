@@ -51,9 +51,7 @@ export default {
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },
-                data:{
-                  
-                }              
+                data: JSON.stringify(_this.pwd),                           
             }).then (function (response) {
                 eventBus.$emit("sisterSaid",response.data);
             }).catch (function (error) {
