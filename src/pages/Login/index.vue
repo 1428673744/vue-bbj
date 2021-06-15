@@ -23,14 +23,13 @@ export default{
     data(){
         return{
             user:{
-            userId:233,
-            userName:'默认',
-            userAccount:'小明兄弟哈啊哈',
+            userAccount:'小明兄弟',
             userPassword:'123',
-            userSex:'',
-            isManager:'',
-            company:'',
-            userTel:''
+            userSex:'male',
+            userAge:10,
+            userTel:'',
+            userPic:'',
+            userAnswer:''
             }
         }
     },
@@ -95,7 +94,7 @@ export default{
 .main-input-content{margin: 0 auto; width: 500px;height: 400px;border: 1px solid rgb(250, 255, 184);background:rgba(4, 40, 46, 0.322);text-align: center;}
 .main-input-title{margin: 0 auto; width:200px;height: 80px;color: rgb(255, 255, 255);font-size: 40px;line-height: 80px;text-align: center;}
 #login-input{margin: 50px auto 0;color:rgb(255, 255, 255);font-size: 20px;}
-#login-input input{width: 200px;height: 30px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;}
+#login-input input{width: 200px;height: 30px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:17px;color: rgb(255, 255, 255);}
 .login-input-button{margin: 25px auto;width: 200px;height: 40px;display: flex;justify-content: space-around;}
 #login-input button{width: 60px;height: 30px;background-color: rgba(255, 255, 255, 0.205);border:0;outline:none;color: white;}
 </style>

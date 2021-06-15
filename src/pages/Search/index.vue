@@ -12,6 +12,10 @@
                 <router-link to="v-url" class="dlt_ black-color main-search-size1">
                     <img :src="v.image" alt="" class="image-form">
                 </router-link>
+                <div class="collect-and-thumb1">
+                <i class="iconfont iconfont-setting1" :class="icon1" @click="addcollect(i)" :style="v.cselect==0?'color:black;':'color:red;'"></i>{{v.cnumber}}
+                <i class="iconfont iconfont-setting2" :class="icon2"></i>{{v.tnumber}}
+                </div>
                 <router-link to="v-url" class="dlt_ black-color main-search-size2">
                     <span>{{v.name}}</span>
                 </router-link>
@@ -32,7 +36,9 @@ export default {
                 {name:'超级小裙子',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
                    {name:'漂亮上衣',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
             ],
-            Newlists:[]
+            Newlists:[],
+            icon1:'icon-shoucang',
+            icon2:'icon-dianzan'
         }
     },
     created() {
@@ -79,9 +85,10 @@ export default {
 .head-search .searchandfind .search-button{font-size: 17px;line-height: 30px;height: 40px;width: 100px;border: none;background: rgb(0, 143, 169);color: floralwhite;}
 li{list-style: none;}
 .main-search{margin: 0 auto; width: 1200px; background-color: rgb(255, 255, 255);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;}
-.main-search li{margin-left:6px; width: 290px;height:350px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
+.main-search li{margin-left:6px; width: 290px;height:400px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
 .black-color{color: black;}
-.main-search-size1{margin-top: 10px; width: 250px;height: 200px;}
+.main-search-size1{margin-top: 10px; width: 250px;height: 300px;}
 .main-search-size1 .image-form{width: 250px;height: 250px;margin-right: auto; margin-left: auto; border-radius: 10px;}
 .main-search-size2{margin-top: 10px; width: 250px;height: 20px;}
+.collect-and-thumb1{width:200px;height: 30px;}
 </style>
