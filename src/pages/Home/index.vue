@@ -8,7 +8,7 @@
         </div>
         <div class="search-head">
             <div class="search-head-secondline">
-                <div><input type="text" name="search" class="search" v-model="keyword"></div>
+                <div><input type="text" name="search" class="search" v-model="keyword" @keyup.enter="employ(keyword)"></div>
                  <div><button @click="employ(keyword)" class="search-button">搜索</button></div>
             </div>
         </div>

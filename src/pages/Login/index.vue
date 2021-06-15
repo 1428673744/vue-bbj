@@ -43,7 +43,7 @@ export default{
             }else{
                 this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/index/check',
+                    url:'http://localhost:8080/bbj/user/login',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 

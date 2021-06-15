@@ -2,7 +2,7 @@
     <div class="all-search">
         <div class="head-search">
             <div class="searchandfind">
-                <div><input type="text" name="search" class="search" v-model="title"></div>
+                <div><input type="text" name="search" class="search" v-model="title"  @keyup.enter="search"></div>
                  <div><button @click="search" class="search-button">搜索</button></div>
              </div>
          </div>
