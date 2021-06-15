@@ -5,7 +5,7 @@
             <div class="main-pwdfind-title">找回密码</div>
             <div class="main-pwdfind">
                 请输入账号：<input type="text" v-model="user.userAccount"><br><br>
-                请输入密保答案：<input type="password" v-model="user.userAnswer"><br><br>
+                请输入密保答案：<input type="text" v-model="user.userAnswer"><br><br>
                  <button @click="findpwd">找回密码</button>
             </div>
         </div>

@@ -33,7 +33,7 @@ export default {
             userAccount:'小明兄弟',
             userPassword:'123',
             userSex:'male',
-            userAge:0,
+            userAge:10,
             userTel:'',
             userPic:'',
             userAnswer:''
@@ -54,7 +54,11 @@ export default {
                     }, 
                     data: JSON.stringify(_this.user),     
                 }).then(function(res){
-                    console.log(res.data);
+                    if(res.data.code==200){
+                        alert(res.data.msg);//用户成功注册
+                    }else{
+                        alert(res.data.msg);//用户已经存在
+                    }
                 }).catch(error=>{
                     console.log(error);
                 })

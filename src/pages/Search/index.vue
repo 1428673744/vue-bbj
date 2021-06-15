@@ -30,12 +30,14 @@ export default {
             lists:[
                 {name:'饼干',url:'/',image:'https://img.alicdn.com/bao/uploaded/i2/138071847/TB2LUnplVXXXXc9XXXXXXXXXXXX_!!138071847.png_200x200q90.jpg_.webp'},
                 {name:'超级小裙子',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
+                   {name:'漂亮上衣',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
             ],
             Newlists:[]
         }
     },
     created() {
     this.title = this.$route.query.title;
+    this.search()
     },
     methods:{
         search(){

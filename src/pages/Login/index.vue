@@ -49,16 +49,15 @@ export default{
                     }, 
                     data: JSON.stringify(_this.user),     
                 }).then(function(res){
-                    console.log(res.data);
-                    if(res.data.meta.status==200){
+                    if(res.data.result.code==200){
                     _this.userToken = res.data.data.token;//前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面
                     // 将用户token保存到vuex中
                     _this.changeLogin({Authorization:_this.userToken});
                     _this.$router.push('/home');
-                    alert("登陆成功");
+                    alert(res.data.result.msg);
                     }
                     else{
-                    alert('账号或密码错误');
+                    alert(res.data.result.msg);
                     }
                 }).catch(error=>{
                     console.log(error);
