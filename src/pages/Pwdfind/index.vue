@@ -4,10 +4,10 @@
         <div class="main-pwdfind-content">
             <div class="main-pwdfind-title">找回密码</div>
             <div class="main-pwdfind">
-                请输入账号：<input type="text" v-model="user.userAccount"><br><br>
-                请输入密保答案：<input type="text" v-model="user.userAnswer"><br><br>
-                请输入新密码：<input type="password" v-model="newpassword"><br><br>
-                再次输入新密码：<input type="password" v-model="scdpassword"><br><br>
+                请输入账号：<input type="text" v-model="pwd.userAccount"><br><br>
+                请输入密保答案：<input type="text" v-model="pwd.userAnswer"><br><br>
+                请输入新密码：<input type="password" v-model="pwd.newpassword"><br><br>
+                再次输入新密码：<input type="password" v-model="pwd.scdpassword"><br><br>
                  <button @click="findpwd">找回密码</button>
             </div>
         </div>
@@ -18,17 +18,12 @@
 export default {
  data(){
         return {
-            user:{
+            pwd:{
             userAccount:'',
-            userPassword:'123',
-            userSex:'male',
-            userAge:0,
-            userTel:'',
-            userPic:'',
-            userAnswer:''
-            },
+            userAnswer:'',
             newpassword:'',
-            scdpassword:''
+            scdpassword:''             
+            }
         }
     },
 methods:{
@@ -40,7 +35,7 @@ methods:{
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },  
-                data: JSON.stringify(_this.user),              
+                data: JSON.stringify(_this.pwd),              
             }).then (function (res) {
                 console.log(res.data);
             }).catch (function (error) {
@@ -55,9 +50,9 @@ methods:{
 <style>
 .main-pwdfind-box{width: 100%;height: 600px;background-image: url(../../assets/background.jpg); background-size: 100% 100%;}
 .main-pwdfind-box-t{ width: 500px;height: 40px;}
-.main-pwdfind-content{margin: 0 auto; width: 500px;height: 500px;border: 1px solid rgb(250, 255, 184);background:rgba(4, 40, 46, 0.322);text-align: center;}
+.main-pwdfind-content{margin: 0 auto; width: 500px;height: 450px;border: 1px solid rgb(250, 255, 184);background:rgba(4, 40, 46, 0.322);text-align: center;}
 .main-pwdfind-title{margin: 0 auto; width:200px;height: 80px;color: rgb(255, 255, 255);font-size: 40px;line-height: 80px;text-align: center;}
 .main-pwdfind{margin: 30px 0;color:rgb(255, 255, 255);font-size: 20px;}
 .main-pwdfind input{width: 200px;height: 30px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;color: rgb(255, 255, 255);}
-.main-pwdfind button{width: 60px;height: 30px;background-color: rgba(255, 255, 255, 0.205);border:0;outline:none;color: white;}
+.main-pwdfind button{width: 70px;height: 40px;background-color: rgba(255, 255, 255, 0.205);border:0;outline:none;color: white;font-size: 16px;}
 </style>
