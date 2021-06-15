@@ -21,6 +21,19 @@
                 </router-link>
             </li>
         </div>
+        <div class="page-b">
+                    <div class="page" v-if="pages !== 1">
+                        <span @click="first" v-if="firstPage == true"
+                              v-bind:class="{active : 1 == currentPage}"><div class="page-littlebox">1</div></span>
+                        <span v-if="pointN == true">...</span>
+                        <span v-for="(page,i) in pageArr" :key=i v-bind:class="[{active : page == currentPage},{point : page == '...'}]"  @click="goTo(page)">
+                            <div class="page-littlebox">{{page}}</div>
+                        </span>
+                        <span v-if="pointL == true">...</span>
+                        <span @click="last" v-if="lastPage == true"
+                              v-bind:class="{active : pages == currentPage}"><div class="page-littlebox">{{pages}}</div></span>
+                    </div>
+        </div>
     </div>
 
 </template>
@@ -38,8 +51,15 @@ export default {
             ],
             Newlists:[],
             icon1:'icon-shoucang',
-            icon2:'icon-dianzan'
-        }
+            icon2:'icon-dianzan',
+          
+            pages:20,//总页数
+            currentPage:1,//当前页
+            firstPage:'',//是否显示第一页
+            lastPage:'',//是否显示最后一页
+            pointN:false,//省略号前部
+            pointL:false,//省略号后部
+        } 
     },
     created() {
     this.title = this.$route.query.title;
@@ -47,6 +67,20 @@ export default {
     },
     methods:{
         search(){
+            let _this=this;
+            this.axios({
+                        method: 'get',     
+                        url: "http://localhost:8080/bbj/goods/getAll", 
+                        params:{
+                            kind:'food',
+                            page:_this.currentPage
+                        }      
+                    }).then (function (response) {
+                        console.log(response.data)
+                    }).catch (function (error) {
+                        console.log(error.data);
+                        _this.message = error.data;
+            });
             let title=this.title
             let Newlists = [];
             this.lists.map(function(list){
@@ -56,6 +90,24 @@ export default {
             })
             this.Newlists=Newlists;
             return Newlists;
+        },
+        first() {
+            this.currentPage = 1;
+            console.log(this.currentPage)
+        },
+        prev:function () {
+            this.currentPage = this.currentPage - 1;
+        },
+        next:function () {
+            this.currentPage = this.currentPage + 1;
+        },
+        last() {
+            this.currentPage = this.pages;
+            console.log(this.currentPage)
+        },
+        goTo(index) {
+            this.currentPage = index;
+            console.log(this.currentPage)
         }
     },
     mounted:function(){
@@ -67,13 +119,77 @@ export default {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
             }).then (function (response) {
-                eventBus.$emit("sisterSaid",response.data);
+                eventBus.$emit("sisterSaid",response.data.userAccount);
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
       });
+       if(this.pages <= 9){//页数小于9全部显示
+                    this.firstPage = true;
+                    this.lastPage = true;
+                    this.pointN = false;
+                    this.pointL = false;
+        }else {
+            if(this.currentPage < 6){//小于6页时
+                this.firstPage = true;
+                this.pointL = true;
+                this.pointN = false;
+                this.lastPage = true;
+            } 
+            if(this.currentPage >=6){//当前页大于6页
+                if(this.currentPage + 2 < this.pages){//五条中显示前两页和后两页
+                this.pointN = true;
+                if(this.currentPage < this.pages){
+                    this.lastPage = true;
+                    }
+                } else {
+                this.pointN = true;
+                this.pointL = false;
+             }
+            }
+        }
+    
   },
+  computed:{   pageArr:function () {
+            var arr = [];
+            if(this.pages <= 9){//页数小于9全部显示
+                for (var i = 2; i <= this.pages -1; i++){
+                    console.log(i);
+                    arr.push(i);
+                }
+                return arr;
+            } else {
+                if(this.currentPage < 6){//小于6页时
+                    for(var z = 2; z <= 7; z++){
+                        arr.push(z)
+                    }
+                    return arr;
+                } else {//当前页大于6页
+                    if(this.currentPage + 2 < this.pages){//五条中显示前两页和后两页
+                        arr = [
+                            this.currentPage -2,
+                            this.currentPage -1,
+                            this.currentPage,
+                            this.currentPage +1,
+                            this.currentPage +2
+                        ];
+                        return arr
+                    } else {
+                        arr = [
+                            this.pages -6,
+                            this.pages -5,
+                            this.pages -4,
+                            this.pages -3,
+                            this.pages -2,
+                            this.pages -1,
+                        ];
+                        return arr
+                    }
 
+                }
+            }
+        },
+    },
 }
 </script>
 
@@ -91,4 +207,7 @@ li{list-style: none;}
 .main-search-size1 .image-form{width: 250px;height: 250px;margin-right: auto; margin-left: auto; border-radius: 10px;}
 .main-search-size2{margin-top: 10px; width: 250px;height: 20px;}
 .collect-and-thumb1{width:200px;height: 30px;}
+.page-b{margin-top: 10px; width: 100%;height: 50px;}
+.page-b .page{margin: 0 auto; width: 500px;height: 40px;display: flex;}
+.page-littlebox{width: 40px;height: 40px;line-height: 40px;text-align: center; background-color: rgb(209, 209, 209);border: 1px solid rgb(199, 199, 199);}
 </style>
