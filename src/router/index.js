@@ -27,14 +27,10 @@ const router = new VueRouter({
 // 导航守卫
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 router.beforeEach((to, from, next) => {
-    if(localStorage.getItem('Authorization')===null||localStorage.getItem('Authorization')===''){
-      localStorage.setItem('Authorization', 'nologin')
-    }
     if (to.path === '/login'||to.path === '/home'||to.path === '/register'||to.path === '/pwdfind') {
       next();
     } else {
-      let token = localStorage.getItem('Authorization');
-      if (token ==='nologin') {//判断token里面的值是否改变
+      if (localStorage.getItem('Authorization')===null||localStorage.getItem('Authorization')==='nologin'||localStorage.getItem('Authorization')==='null') {//判断token里面的值是否改变
         next('/login');
       } else {
         next();
