@@ -31,8 +31,7 @@ export default {
  data(){
         return{
             user:{
-            userAccount:'小明兄弟',
-            userPassword:'123',
+            userAccount:'',
             userSex:'male',
             userAge:10,
             userTel:'',
@@ -51,8 +50,8 @@ export default {
                     'Content-Type': 'application/json;charset=utf-8'     
                 }, 
                 data: JSON.stringify(_this.user),              
-            }).then (function (response) {
-                eventBus.$emit("sisterSaid",response.data);
+            }).then (function (res) {
+                console.log(res.data)
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
@@ -68,7 +67,8 @@ export default {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
             }).then (function (response) {
-                eventBus.$emit("sisterSaid",response.data);
+                 _this.user.userAccount=response.data.userAccount
+                eventBus.$emit("sisterSaid",response.data.userAccount);
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;

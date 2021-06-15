@@ -79,7 +79,7 @@ export default{
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
             }).then (function (response) {
-                eventBus.$emit("sisterSaid",response.data);
+                eventBus.$emit("sisterSaid",response.data.userAccount);
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
