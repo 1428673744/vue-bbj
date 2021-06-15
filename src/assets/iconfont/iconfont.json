@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "485763",
+      "name": "收 藏",
+      "font_class": "shoucang",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "1068655",
+      "name": "户外用品",
+      "font_class": "weibiaoti2fuzhi11",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "1486808",
+      "name": "电器",
+      "font_class": "dianqi",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "9557918",
+      "name": "玩具",
+      "font_class": "wanju",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "14135880",
+      "name": "学习用品",
+      "font_class": "xuexiyongpin",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "19594599",
+      "name": "衣服",
+      "font_class": "clothes",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "20000498",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "21481866",
+      "name": "食物",
+      "font_class": "shiwu",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    }
+  ]
+}
