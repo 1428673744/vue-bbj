@@ -7,11 +7,11 @@
             <span>{{v.title}}</span>
             </router-link>
             <ul>
-                <li v-for="(v,i) in v.two_lists" :key="i">
-                     <span class="theme">{{v.title}}</span><br>
+                <li v-for="(d,i) in v.two_lists" :key="i">
+                     <span class="theme">{{d.title}}</span><br>
                      <div class="category-three">
-                      <router-link :to="{path: 'search',query:{title:v.title}}"  v-for="(v,i) in v.three_lists" :key="i" class="dlt_ white-color formatting">
-                      <span>{{v.title}}</span>
+                      <router-link :to="{path: 'search',query:{title:d.title}}"  v-for="(t,i) in d.three_lists" :key="i" class="dlt_ white-color formatting">
+                      <span>{{t.title}}</span>
                       </router-link>                      
                      </div>
                 </li>

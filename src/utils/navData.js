@@ -1,5 +1,5 @@
 export default [
-    {title:'食品',icon:"icon-shiwu",
+    {title:'食品',icon:"icon-shiwu",kind:'food',
     two_lists:[
       {title:'零食',icon:"icon-shiwu",
         three_lists:[
@@ -27,7 +27,7 @@ export default [
       },
     ],
   },
-  {title:'衣服',icon:"icon-clothes",
+  {title:'衣服',icon:"icon-clothes",kind:'cloth',
       two_lists:[
       {title:'女装',icon:"icon-shiwu",
         three_lists:[
@@ -56,7 +56,7 @@ export default [
       },
     ],
   },
-  {title:'玩具',icon:"icon-wanju",
+  {title:'玩具',icon:"icon-wanju",kind:'toy',
     two_lists:[
       {title:'益智玩具',icon:"icon-shiwu",
         three_lists:[
@@ -72,7 +72,7 @@ export default [
       },
     ],
   },
-  {title:'电器',icon:"icon-dianqi",
+  {title:'电器',icon:"icon-dianqi",kind:'electricalequipment',
       two_lists:[
       {title:'厨房电器',icon:"icon-shiwu",
         three_lists:[
@@ -88,7 +88,7 @@ export default [
       },
       ]
       },
-  {title:'学习用品',icon:"icon-xuexiyongpin",
+  {title:'学习用品',icon:"icon-xuexiyongpin",kind:'stationery',
       two_lists:[
       {title:'笔',icon:"icon-shiwu",
         three_lists:[
@@ -110,7 +110,7 @@ export default [
       },
       ]
   },
-  {title:'户外用品',icon:"icon-weibiaoti2fuzhi11",
+  {title:'户外用品',icon:"icon-weibiaoti2fuzhi11",kind:'outdoor',
      two_lists:[
       {title:'体育用品',icon:"icon-shiwu",
         three_lists:[

@@ -47,7 +47,7 @@ export default {
             lists:[
                 {name:'饼干',url:'/',image:'https://img.alicdn.com/bao/uploaded/i2/138071847/TB2LUnplVXXXXc9XXXXXXXXXXXX_!!138071847.png_200x200q90.jpg_.webp'},
                 {name:'超级小裙子',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
-                   {name:'漂亮上衣',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
+                {name:'漂亮上衣',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
             ],
             Newlists:[],
             icon1:'icon-shoucang',
@@ -57,8 +57,8 @@ export default {
             currentPage:1,//当前页
             firstPage:'',//是否显示第一页
             lastPage:'',//是否显示最后一页
-            pointN:false,//省略号前部
-            pointL:false,//省略号后部
+            pointN:true,//省略号前部
+            pointL:true,//省略号后部
         } 
     },
     created() {
@@ -70,9 +70,9 @@ export default {
             let _this=this;
             this.axios({
                         method: 'get',     
-                        url: "http://localhost:8080/bbj/goods/getAll", 
+                        url: "http://localhost:8080/bbj/goods/getAll",        
                         params:{
-                            kind:'food',
+                            title:_this.title,
                             page:_this.currentPage
                         }      
                     }).then (function (response) {
@@ -125,26 +125,19 @@ export default {
                 _this.message = error.data;
       });
        if(this.pages <= 9){//页数小于9全部显示
-                    this.firstPage = true;
-                    this.lastPage = true;
-                    this.pointN = false;
-                    this.pointL = false;
-        }else {
-            if(this.currentPage < 6){//小于6页时
                 this.firstPage = true;
-                this.pointL = true;
-                this.pointN = false;
+                this.lastPage = true;
+        }else {
+            if(this.currentPage < 9){//小于6页时
+                this.firstPage = true;
                 this.lastPage = true;
             } 
             if(this.currentPage >=6){//当前页大于6页
                 if(this.currentPage + 2 < this.pages){//五条中显示前两页和后两页
-                this.pointN = true;
                 if(this.currentPage < this.pages){
                     this.lastPage = true;
                     }
                 } else {
-                this.pointN = true;
-                this.pointL = false;
              }
             }
         }
@@ -160,22 +153,25 @@ export default {
                 return arr;
             } else {
                 if(this.currentPage < 6){//小于6页时
-                    for(var z = 2; z <= 7; z++){
+                    for(var z = 2; z <= 8; z++){
                         arr.push(z)
                     }
                     return arr;
                 } else {//当前页大于6页
-                    if(this.currentPage + 2 < this.pages){//五条中显示前两页和后两页
+                    if(this.currentPage + 3 < this.pages){//五条中显示前两页和后两页
                         arr = [
+                            this.currentPage -3,
                             this.currentPage -2,
                             this.currentPage -1,
                             this.currentPage,
                             this.currentPage +1,
-                            this.currentPage +2
+                            this.currentPage +2,
+                            this.currentPage +3,
                         ];
                         return arr
                     } else {
                         arr = [
+                            this.pages -7,
                             this.pages -6,
                             this.pages -5,
                             this.pages -4,
