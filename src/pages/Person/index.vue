@@ -6,7 +6,7 @@
         <div>
         用户账号:{{user.userAccount}}
         </div>
-        <form  @submit.prevent="submit">
+        <form  @submit.prevent="changeif">
         <div>
              性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
             女<input type="radio" name="userSex" v-model="user.userSex" value="female"><br><br>
@@ -15,7 +15,7 @@
         <div> 手机号：<input type="text" v-model="user.userTel" class="changeinput"></div>
         <div>您的密保问题:请问您的妈妈是谁?</div>
         <div>密保回答：<input type="text" v-model="user.userAnswer" class="changeinput"></div>
-        <div><button @click="changeif">修改</button></div>
+        <div><button>修改</button></div>
         </form>
     </div>
     </div>
@@ -34,7 +34,7 @@ export default {
             userAccount:'',
             userSex:'male',
             userAge:10,
-            userTel:'',
+            userTel:'ddd',
             userPic:'',
             userAnswer:''
             }
@@ -51,7 +51,11 @@ export default {
                 }, 
                 data: JSON.stringify(_this.user),              
             }).then (function (res) {
-                console.log(res.data)
+                if(res.data.code==200){
+                    alert(res.data.msg)
+                }else{
+                    alert(res.data.msg)
+                }
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
@@ -67,7 +71,12 @@ export default {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
             }).then (function (response) {
+                console.log(response.data)
                  _this.user.userAccount=response.data.userAccount
+                 _this.user.userSex=response.data.userSex
+                 _this.user.userAge=response.data.userAge
+                 _this.user.userTel=response.data.userTel
+                 _this.user.userAnswer=response.data.userAnswer
                 eventBus.$emit("sisterSaid",response.data.userAccount);
             }).catch (function (error) {
                 console.log(error.data);
