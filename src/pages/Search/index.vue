@@ -10,14 +10,14 @@
         <div class="main-search">
             <li v-for="(v,i) in Newlists" :key="i">
                 <router-link to="v-url" class="dlt_ black-color main-search-size1">
-                    <img :src="v.image" alt="" class="image-form">
+                    <img :src="v.pictureLink" alt="" class="image-form">
                 </router-link>
                 <div class="collect-and-thumb1">
                 <i class="iconfont iconfont-setting1" :class="icon1" @click="addcollect(i)" :style="v.cselect==0?'color:black;':'color:red;'"></i>{{v.cnumber}}
                 <i class="iconfont iconfont-setting2" :class="icon2"></i>{{v.tnumber}}
                 </div>
                 <router-link to="v-url" class="dlt_ black-color main-search-size2">
-                    <span>{{v.name}}</span>
+                    <span>{{v.title}}</span>
                 </router-link>
             </li>
         </div>
@@ -25,11 +25,11 @@
                     <div class="page" v-if="pages !== 1">
                         <span @click="first" v-if="firstPage == true"
                               v-bind:class="{active : 1 == currentPage}"><div class="page-littlebox">1</div></span>
-                        <span v-if="pointN == true">...</span>
+                        <span class="white-box"></span>
                         <span v-for="(page,i) in pageArr" :key=i v-bind:class="[{active : page == currentPage},{point : page == '...'}]"  @click="goTo(page)">
                             <div class="page-littlebox">{{page}}</div>
                         </span>
-                        <span v-if="pointL == true">...</span>
+                        <span class="white-box"></span>
                         <span @click="last" v-if="lastPage == true"
                               v-bind:class="{active : pages == currentPage}"><div class="page-littlebox">{{pages}}</div></span>
                     </div>
@@ -72,11 +72,12 @@ export default {
                         method: 'get',     
                         url: "http://localhost:8080/bbj/goods/getAll",        
                         params:{
-                            title:_this.title,
+                            title:encodeURI(_this.title),
                             page:_this.currentPage
-                        }      
+                        },
+                        data:decodeURI()      
                     }).then (function (response) {
-                        console.log(response.data)
+                        _this.Newlists=response.data.result.data;
                     }).catch (function (error) {
                         console.log(error.data);
                         _this.message = error.data;
@@ -127,12 +128,14 @@ export default {
        if(this.pages <= 9){//页数小于9全部显示
                 this.firstPage = true;
                 this.lastPage = true;
+                this.pointN = false;
+                this.pointL = false;
         }else {
-            if(this.currentPage < 9){//小于6页时
+            if(this.currentPage < 8){//小于9页时
                 this.firstPage = true;
                 this.lastPage = true;
             } 
-            if(this.currentPage >=6){//当前页大于6页
+            if(this.currentPage>=8){//当前页大于8页
                 if(this.currentPage + 2 < this.pages){//五条中显示前两页和后两页
                 if(this.currentPage < this.pages){
                     this.lastPage = true;
@@ -199,11 +202,12 @@ li{list-style: none;}
 .main-search{margin: 0 auto; width: 1200px; background-color: rgb(255, 255, 255);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;}
 .main-search li{margin-left:6px; width: 290px;height:400px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
 .black-color{color: black;}
-.main-search-size1{margin-top: 10px; width: 250px;height: 300px;}
+.main-search-size1{margin-top: 10px; width: 250px;height: 270px;}
 .main-search-size1 .image-form{width: 250px;height: 250px;margin-right: auto; margin-left: auto; border-radius: 10px;}
-.main-search-size2{margin-top: 10px; width: 250px;height: 20px;}
+.main-search-size2{margin-top: 10px; width: 250px;height: 70px;color: rgb(102, 102, 102);text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
 .collect-and-thumb1{width:200px;height: 30px;}
 .page-b{margin-top: 10px; width: 100%;height: 50px;}
 .page-b .page{margin: 0 auto; width: 500px;height: 40px;display: flex;}
 .page-littlebox{width: 40px;height: 40px;line-height: 40px;text-align: center; background-color: rgb(209, 209, 209);border: 1px solid rgb(199, 199, 199);}
+.white-box{width: 40px;height: 40px;}
 </style>
