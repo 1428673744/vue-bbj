@@ -1,6 +1,6 @@
 <template>
     <div class="main-right">
-        <li v-for="(v,i) in lists" :key="i">
+        <li v-for="(v,i) in newLists" :key="i">
             <router-link :to="{path: 'goods',query:{goodId:v.id}}"  class="dlt_ black-color main-right-size1">
                 <img :src="v.pictureLink" alt="" class="image-form">
             </router-link>
@@ -32,7 +32,8 @@ export default {
             ],
             icon1:'icon-shoucang',
             icon2:'icon-dianzan',
-            collectList:[]//未登录用户为空
+            collectList:[],//未登录用户为空
+            newLists:[]
         }
     },
     methods:{
@@ -62,12 +63,31 @@ export default {
             console.log(error.data);
             _this.message = error.data;
         });        
-        }
+        },
+        initRecommend(){
+      let _this=this;
+      this.axios({
+         method: 'post',     
+        url: "http://localhost:8080/bbj/home/getRecommendation",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'     
+        },              
+         }).then (function (response) {
+          console.log(response.data);
+          _this.newLists=response.data.data
+        }).catch (function (error) {
+          console.log(error.data);
+           _this.message = error.data;
+      });
+    },
     },
     watch:{
         cselect:function(i){
             console.log(this.lists[i].cselect)
         }
+    },
+    mounted(){
+        this.initRecommend()
     }
 
 }

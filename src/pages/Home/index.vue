@@ -52,21 +52,7 @@ export default {
         query:{title:title}
       })
       },
-    initRecommend(){
-      let _this=this;
-      this.axios({
-         method: 'post',     
-        url: "http://localhost:8080/bbj/home/getRecommendation",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'     
-        },              
-         }).then (function (response) {
-          console.log(response.data);
-        }).catch (function (error) {
-          console.log(error.data);
-           _this.message = error.data;
-      });
-    },
+
     inituser(){
       let _this=this;
       this.axios({
@@ -86,7 +72,6 @@ export default {
     }
   },
   mounted(){
-      this.initRecommend()
       this.inituser()
   }
 }

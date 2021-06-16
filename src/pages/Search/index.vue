@@ -78,7 +78,8 @@ export default {
             pnumber:'0',//价格排序,0不排，1从低到高，2从高到低
             cnumber:'0',
             value:0,
-            collectList:[123,237,3936]
+            collectList:[123,237,3936],
+            iscollect:0
         } 
     },
     created() {
@@ -220,9 +221,11 @@ export default {
             }
         },
         decidecollect(index){
-            if(this.collectList.indexOf(index))
+            if(this.collectList.indexOf(index)==-1)
             {
-                
+                this.iscollect=0//未收藏
+            }else{
+                this.iscollect=1//已收藏
             }
              let _this=this;
              this.axios({
@@ -231,7 +234,7 @@ export default {
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },  
-                data:JSON.stringify(index)           
+                data:JSON.stringify({index:index,iscollect:_this.iscollect})           
             }).then (function (response) {
                 console.log(response.data)
             }).catch (function (error) {
