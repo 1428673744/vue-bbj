@@ -50,8 +50,8 @@ export default {
       }
     },
     mounted(){
-        init(),
-        initgoods()     
+        this.init(),
+        this.initgoods()     
     }
 }
 </script>
