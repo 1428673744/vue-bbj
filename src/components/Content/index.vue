@@ -51,7 +51,7 @@ export default {
             let _this=this;
             this.axios({
             method: 'post',     
-            url: "http://localhost:8080/bbj/user/changNumber",
+            url: "http://localhost:8080/bbj/home/changNumber",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'     
             },  
