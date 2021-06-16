@@ -61,6 +61,6 @@ li{list-style: none;}
 .main-collect{margin: 0 auto; width: 1000px; background-color: rgba(6, 109, 112, 0.13);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-between;}
 .main-collect li{width: 240px;height:300px;border: 1px solid rgba(9, 153, 141, 0.329);display: flex;flex-wrap: wrap;justify-content: space-around;}
 .main-search-size3{margin-top: 10px; width: 190px;height: 200px;}
-.main-search-size3 .image-form{width: 190px;height: 190px;margin-right: auto; margin-left: auto; border-radius: 10px;}
+.main-search-size3 .image-form{margin-top: 5px; width: 190px;height: 190px;margin-right: auto; margin-left: auto; border-radius: 10px;}
 .main-search-size4{margin-top: 10px; width: 190px;height: 20px;}
 </style>
