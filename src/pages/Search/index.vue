@@ -78,7 +78,7 @@ export default {
             pnumber:'0',//价格排序,0不排，1从低到高，2从高到低
             cnumber:'0',
             value:0,
-            collectList:[123,237,3936],
+            collectList:[{id:123,age:2},{id:123,age:2},{id:3936,age:2}],
             iscollect:0
         } 
     },
@@ -221,6 +221,11 @@ export default {
             }
         },
         decidecollect(index){
+            let arr=[];
+            for (let index = 0; index < this.collectList.length; index++) {
+                  arr.push(this.collectList[index].id)
+            }
+            console.log(arr)
             if(this.collectList.indexOf(index)==-1)
             {
                 this.iscollect=0//未收藏

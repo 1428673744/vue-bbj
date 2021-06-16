@@ -7,6 +7,10 @@
                     <router-link :to="{path: 'goods',query:{id:v.id}}"  class="dlt_ black-color main-right-size3">
                         <img :src="v.pictureLink" alt="" class="image-form">
                     </router-link>
+                    <div class="collect-and-thumb">
+                     <i class="iconfont iconfont-setting1" :class="icon1"  @click="decidecollect(v.id)" :style="collectList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'"></i>
+                     <div class="likes-number">{{v.likes}}</div>
+                    </div>
                     <router-link :to="{path: 'goods',query:{id:v.id}}" class="dlt_ black-color main-right-size4">
                         <span>{{v.title}}</span>
                     </router-link>
@@ -32,7 +36,9 @@ export default {
                 {title:'超级小裙子',url:'/'},
                 {title:'超级小裙子',url:'/'},
                 {title:'超级小裙子',url:'/'},
-            ]
+            ],
+             icon1:'icon-shoucang',
+             collectList:[],//未登录用户为空
         }
     },
     mounted:function(){

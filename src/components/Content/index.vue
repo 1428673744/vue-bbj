@@ -31,7 +31,6 @@ export default {
                 {title:'超级小裙子',url:'/'},
             ],
             icon1:'icon-shoucang',
-            icon2:'icon-dianzan',
             collectList:[],//未登录用户为空
             newLists:[]
         }
