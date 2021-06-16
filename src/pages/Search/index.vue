@@ -11,16 +11,16 @@
                 <span>排序:</span>
                 <div @click="search(1)"  class="box">
                     <div @click="pricechange" >价格
-                    <span v-if="pnumber==0">-</span>
-                    <span v-if="pnumber==1">⬆</span>
-                    <span v-if="pnumber==2">⬇</span>                    
+                    <span v-if="pnumber=='0'">-</span>
+                    <span v-if="pnumber=='1'">⬆</span>
+                    <span v-if="pnumber=='2'">⬇</span>                    
                     </div>
                     </div>
                 <div @click="search(1)" class="box">
                     <div @click="collectchange">收藏
-                    <span v-if="cnumber==0">-</span>
-                    <span v-if="cnumber==1">⬆</span>
-                    <span v-if="cnumber==2">⬇</span>
+                    <span v-if="cnumber=='0'">-</span>
+                    <span v-if="cnumber=='1'">⬆</span>
+                    <span v-if="cnumber=='2'">⬇</span>
                     </div></div>
             </div>
          </div>
@@ -78,8 +78,8 @@ export default {
             currentPage:1,//当前页
             firstPage:'',//是否显示第一页
             lastPage:'',//是否显示最后一页
-            pnumber:0,//价格排序,0不排，1从低到高，2从高到低
-            cnumber:0,
+            pnumber:'0',//价格排序,0不排，1从低到高，2从高到低
+            cnumber:'0',
         } 
     },
     created() {
@@ -180,6 +180,7 @@ export default {
                         data:decodeURI()      
                     }).then (function (response) {
                         _this.Newlists=response.data.result.data;
+                        this.$router.push({ name:'search', params: { title: _this.tittle }})
                         console.log(response.data)
                     }).catch (function (error) {
                         console.log(error.data);
@@ -196,27 +197,27 @@ export default {
             // return Newlists;
         },
         pricechange(){
-            if(this.pnumber==0)
+            if(this.pnumber=='0')
             {
-                this.pnumber = 1;
-                this.cnumber = 0;
+                this.pnumber = '1';
+                this.cnumber = '0';
             }else if(this.pnumber==1){
-                this.pnumber = 2;
-                this.cnumber = 0;
+                this.pnumber = '2';
+                this.cnumber = '0';
             }else{
-                this.pnumber = 0;
+                this.pnumber = '0';
             }
         },
         collectchange(){
-            if(this.cnumber==0)
+            if(this.cnumber=='0')
             {
-                this.cnumber = 1;
-                this.pnumber = 0;
+                this.cnumber = '1';
+                this.pnumber = '0';
             }else if(this.cnumber==1){
-                this.cnumber = 2;
-                this.pnumber = 0;
+                this.cnumber = '2';
+                this.pnumber = '0';
             }else{
-                this.cnumber = 0;
+                this.cnumber = '0';
             }
         }
     },
