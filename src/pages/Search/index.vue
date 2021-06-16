@@ -56,7 +56,6 @@
                     </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -64,12 +63,7 @@ import { eventBus } from '../../main'
 export default {
     data(){
         return {
-            title:'dcd',
-            lists:[
-                {name:'饼干',url:'/',image:'https://img.alicdn.com/bao/uploaded/i2/138071847/TB2LUnplVXXXXc9XXXXXXXXXXXX_!!138071847.png_200x200q90.jpg_.webp'},
-                {name:'超级小裙子',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
-                {name:'漂亮上衣',url:'/',image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
-            ],
+            title:'饼干',
             Newlists:[],
             icon1:'icon-shoucang',
             icon2:'icon-dianzan',
@@ -180,7 +174,7 @@ export default {
                         data:decodeURI()      
                     }).then (function (response) {
                         _this.Newlists=response.data.result.data;
-                        this.$router.push({ name:'search', params: { title: _this.tittle }})
+                        // this.$router.push({ name:'search', params: { title: _this.tittle }})
                         console.log(response.data)
                     }).catch (function (error) {
                         console.log(error.data);

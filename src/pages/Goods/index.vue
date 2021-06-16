@@ -17,7 +17,8 @@ export default {
      created() {//钩子函数，初始化数据
      this.goodId = this.$route.query.goodId;
      },
-     mounted:function(){
+     methods:{
+         init(){
       let _this=this;
             this.axios({
                 method: 'post',     
@@ -30,8 +31,28 @@ export default {
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
-      });
+      });},
+      initgoods(){
+            let _this=this;
+            this.axios({
+                        method: 'get',     
+                        url: "http://localhost:8080/bbj/goods/getCompare",        
+                        params:{
+                            goodId:_this.goodId
+                        }  
+                    }).then (function (response) {
+                        _this.Newlists=response.data.result.data;
+                        console.log(response.data)
+                    }).catch (function (error) {
+                        console.log(error.data);
+                        _this.message = error.data;
+            });
+      }
     },
+    mounted(){
+        init(),
+        initgoods()     
+    }
 }
 </script>
 
