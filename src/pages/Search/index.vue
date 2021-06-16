@@ -9,19 +9,19 @@
          <div class="showGoods-sort">
             <div class="showGoods">
                 <span>排序:</span>
-                <div @click="pricechange">
-                    <router-link :to="{path: 'search',query:{title:title,pnumber:pnumber,cnumber:cnumber}}" class="dlt_ grey-color" >价格
+                <div @click="pricechange" class="box">
+                    <div @click="search(1)" >价格
                     <span v-if="pnumber==0">-</span>
                     <span v-if="pnumber==1">⬆</span>
                     <span v-if="pnumber==2">⬇</span>                    
-                    </router-link>
                     </div>
-                <div @click="collectchange">
-                    <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color" >收藏
+                    </div>
+                <div @click="collectchange" class="box">
+                    <div @click="search(1)">收藏
                     <span v-if="cnumber==0">-</span>
                     <span v-if="cnumber==1">⬆</span>
                     <span v-if="cnumber==2">⬇</span>
-                    </router-link></div>
+                    </div></div>
             </div>
          </div>
         <div class="main-search">
@@ -230,7 +230,7 @@ export default {
 li{list-style: none;}
 .showGoods-sort{margin: 0 auto;width: 1200px;height: 50px;background-color: rgb(0, 143, 169);color: white;border: 1px solid rgb(0, 133, 143);}
 .showGoods{margin-left: 10px; width:200px;height: 50px;display: flex;line-height: 50px;}
-.showGoods div{margin-left: 5px;margin-top: auto;margin-bottom: auto; width:50px;height: 35px;border: 0.5px solid rgba(7, 104, 86, 0.603);background-color: rgb(9, 117, 136); color: rgb(248, 248, 248);line-height: 35px;text-align: center;}
+.showGoods .box{margin-left: 5px;margin-top: auto;margin-bottom: auto; width:50px;height: 35px;border: 0.5px solid rgba(7, 104, 86, 0.603);background-color: rgb(9, 117, 136); color: rgb(248, 248, 248);line-height: 35px;text-align: center;}
 .main-search{margin: 20px auto; width: 1200px; background-color: rgb(255, 255, 255);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;}
 .main-search li{margin-top: 5px; margin-left:6px; width: 290px;height:400px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
 .black-color{color: black;}
