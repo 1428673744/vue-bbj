@@ -37,7 +37,7 @@
                     {{v.price}}元
                 </div>
                 </div>
-                <router-link to="/goods" class="dlt_ black-color main-search-size2">
+                <router-link :to="{path: 'goods',query:{goodId:v.id}}" class="dlt_ black-color main-search-size2">
                     <span>{{v.title}}</span>
                 </router-link>
             </li>
@@ -46,12 +46,12 @@
                     <div class="page" v-if="pages !== 1">
                         <span @click="search(1)">
                             <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">1</div></router-link></span>
-                        <span class="white-box"></span>
+                        <span class="white-box"  v-if="pages>1"></span>
                         <span v-for="(page,i) in pageArr" :key=i v-bind:class="[{active : page == currentPage},{point : page == '...'}]"  @click="search(page)">
                                 <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">{{page}}</div></router-link>
                         </span>
-                        <span class="white-box"></span>
-                        <span @click="search(pages)">
+                        <span class="white-box"  v-if="pages>1"></span>
+                        <span @click="search(pages)" v-if="pages>1">
                             <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">{{pages}}</div></router-link></span>
                     </div>
         </div>
@@ -70,8 +70,7 @@ export default {
           
             pages:20,//总页数
             currentPage:1,//当前页
-            firstPage:'',//是否显示第一页
-            lastPage:'',//是否显示最后一页
+            lastpage:1,//是否显示最后一页
             pnumber:'0',//价格排序,0不排，1从低到高，2从高到低
             cnumber:'0',
         } 
@@ -100,7 +99,7 @@ export default {
             var arr = [];
             let cp=this.currentPage
             console.log("我是"+cp)
-            console.log("page是")
+            console.log("pages是"+this.pages)
             if(this.pages <= 9){//页数小于9全部显示
                 for (var i = 2; i <= this.pages -1; i++){
                     console.log(i);
@@ -174,12 +173,14 @@ export default {
                         },   
                     }).then (function (response) {
                         _this.Newlists=response.data.result.data;
+                        _this.pages=_this.Newlists.length
                         // this.$router.push({ name:'search', params: { title: _this.tittle }})
                         console.log(response.data)
                     }).catch (function (error) {
                         console.log(error.data);
                         _this.message = error.data;
             });
+              this.$router.push({path:'/search',query:{title: _this.title}})
         },
         pricechange(){
             if(this.pnumber=='0')
