@@ -100,6 +100,7 @@ export default {
             var arr = [];
             let cp=this.currentPage
             console.log("我是"+cp)
+            console.log("page是")
             if(this.pages <= 9){//页数小于9全部显示
                 for (var i = 2; i <= this.pages -1; i++){
                     console.log(i);
@@ -170,8 +171,7 @@ export default {
                             page:currentPage,
                             pnumber:_this.pnumber,
                             cnumber:_this.cnumber
-                        },
-                        data:decodeURI()      
+                        },   
                     }).then (function (response) {
                         _this.Newlists=response.data.result.data;
                         // this.$router.push({ name:'search', params: { title: _this.tittle }})
@@ -180,15 +180,6 @@ export default {
                         console.log(error.data);
                         _this.message = error.data;
             });
-            // let title=this.title
-            // let Newlists = [];
-            // this.lists.map(function(list){
-            //  if(list.name.search(title)!=-1){
-            //     Newlists.push(list)
-            // }   
-            // })
-            // this.Newlists=Newlists;
-            // return Newlists;
         },
         pricechange(){
             if(this.pnumber=='0')
