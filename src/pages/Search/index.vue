@@ -3,35 +3,56 @@
         <div class="head-search">
             <div class="searchandfind">
                 <div><input type="text" name="search" class="search" v-model="title"  @keyup.enter="search"></div>
-                 <div><button @click="search" class="search-button">搜索</button></div>
+                 <div><button @click="search(1)" class="search-button">搜索</button></div>
              </div>
          </div>
-
+         <div class="showGoods-sort">
+            <div class="showGoods">
+                <span>排序:</span>
+                <div @click="pricechange">
+                    <router-link :to="{path: 'search',query:{title:title,pnumber:pnumber,cnumber:cnumber}}" class="dlt_ grey-color" >价格
+                    <span v-if="pnumber==0">-</span>
+                    <span v-if="pnumber==1">⬆</span>
+                    <span v-if="pnumber==2">⬇</span>                    
+                    </router-link>
+                    </div>
+                <div @click="collectchange">
+                    <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color" >收藏
+                    <span v-if="cnumber==0">-</span>
+                    <span v-if="cnumber==1">⬆</span>
+                    <span v-if="cnumber==2">⬇</span>
+                    </router-link></div>
+            </div>
+         </div>
         <div class="main-search">
             <li v-for="(v,i) in Newlists" :key="i">
-                <router-link to="v-url" class="dlt_ black-color main-search-size1">
+                <router-link to="/Goods" class="dlt_ black-color main-search-size1">
                     <img :src="v.pictureLink" alt="" class="image-form">
                 </router-link>
                 <div class="collect-and-thumb1">
-                <i class="iconfont iconfont-setting1" :class="icon1" @click="addcollect(i)" :style="v.cselect==0?'color:black;':'color:red;'"></i>{{v.cnumber}}
-                <i class="iconfont iconfont-setting2" :class="icon2"></i>{{v.tnumber}}
+                <i class="iconfont iconfont-setting1" :class="icon1" @click="addcollect(i)" :style="v.cselect==0?'color:black;':'color:red;'"></i>
+                <div class="likes-number">{{v.likes}}</div>
+                <!-- <i class="iconfont iconfont-setting2" :class="icon2"></i>{{v.tnumber}} -->
+                <div class="price-number">
+                    {{v.price}}元
                 </div>
-                <router-link to="v-url" class="dlt_ black-color main-search-size2">
+                </div>
+                <router-link to="/goods" class="dlt_ black-color main-search-size2">
                     <span>{{v.title}}</span>
                 </router-link>
             </li>
         </div>
         <div class="page-b">
                     <div class="page" v-if="pages !== 1">
-                        <span @click="first" v-if="firstPage == true"
-                              v-bind:class="{active : 1 == currentPage}"><div class="page-littlebox">1</div></span>
+                        <span @click="search(1)">
+                            <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">1</div></router-link></span>
                         <span class="white-box"></span>
-                        <span v-for="(page,i) in pageArr" :key=i v-bind:class="[{active : page == currentPage},{point : page == '...'}]"  @click="goTo(page)">
-                            <div class="page-littlebox">{{page}}</div>
+                        <span v-for="(page,i) in pageArr" :key=i v-bind:class="[{active : page == currentPage},{point : page == '...'}]"  @click="search(page)">
+                                <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">{{page}}</div></router-link>
                         </span>
                         <span class="white-box"></span>
-                        <span @click="last" v-if="lastPage == true"
-                              v-bind:class="{active : pages == currentPage}"><div class="page-littlebox">{{pages}}</div></span>
+                        <span @click="search(pages)">
+                            <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">{{pages}}</div></router-link></span>
                     </div>
         </div>
     </div>
@@ -57,62 +78,17 @@ export default {
             currentPage:1,//当前页
             firstPage:'',//是否显示第一页
             lastPage:'',//是否显示最后一页
-            pointN:true,//省略号前部
-            pointL:true,//省略号后部
+            pnumber:0,//价格排序,0不排，1从低到高，2从高到低
+            cnumber:0,
         } 
     },
     created() {
     this.title = this.$route.query.title;
     this.search()
     },
-    methods:{
-        search(){
-            let _this=this;
-            this.axios({
-                        method: 'get',     
-                        url: "http://localhost:8080/bbj/goods/getAll",        
-                        params:{
-                            title:encodeURI(_this.title),
-                            page:_this.currentPage
-                        },
-                        data:decodeURI()      
-                    }).then (function (response) {
-                        _this.Newlists=response.data.result.data;
-                    }).catch (function (error) {
-                        console.log(error.data);
-                        _this.message = error.data;
-            });
-            let title=this.title
-            let Newlists = [];
-            this.lists.map(function(list){
-             if(list.name.search(title)!=-1){
-                Newlists.push(list)
-            }   
-            })
-            this.Newlists=Newlists;
-            return Newlists;
-        },
-        first() {
-            this.currentPage = 1;
-            console.log(this.currentPage)
-        },
-        prev:function () {
-            this.currentPage = this.currentPage - 1;
-        },
-        next:function () {
-            this.currentPage = this.currentPage + 1;
-        },
-        last() {
-            this.currentPage = this.pages;
-            console.log(this.currentPage)
-        },
-        goTo(index) {
-            this.currentPage = index;
-            console.log(this.currentPage)
-        }
-    },
     mounted:function(){
       let _this=this;
+      let cp=this.currentPage;
       this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/getInformation",
@@ -131,23 +107,26 @@ export default {
                 this.pointN = false;
                 this.pointL = false;
         }else {
-            if(this.currentPage < 8){//小于9页时
+            if(cp< 8){//小于9页时
                 this.firstPage = true;
                 this.lastPage = true;
             } 
-            if(this.currentPage>=8){//当前页大于8页
-                if(this.currentPage + 2 < this.pages){//五条中显示前两页和后两页
-                if(this.currentPage < this.pages){
+            if(cp>=8){//当前页大于8页
+               this.firstPage = true;
+                this.lastPage = true;
+                if(cp + 2 < this.pages){//五条中显示前两页和后两页
+                if(cp < this.pages){
                     this.lastPage = true;
                     }
-                } else {
-             }
+                } 
             }
         }
     
   },
-  computed:{   pageArr:function () {
+  computed:{ pageArr:function () {
             var arr = [];
+            let cp=this.currentPage
+            console.log("我是"+cp)
             if(this.pages <= 9){//页数小于9全部显示
                 for (var i = 2; i <= this.pages -1; i++){
                     console.log(i);
@@ -155,21 +134,21 @@ export default {
                 }
                 return arr;
             } else {
-                if(this.currentPage < 6){//小于6页时
+                if(cp < 6){//小于6页时
                     for(var z = 2; z <= 8; z++){
                         arr.push(z)
                     }
                     return arr;
                 } else {//当前页大于6页
-                    if(this.currentPage + 3 < this.pages){//五条中显示前两页和后两页
+                    if(cp + 3 < this.pages){//五条中显示前两页和后两页
                         arr = [
-                            this.currentPage -3,
-                            this.currentPage -2,
-                            this.currentPage -1,
-                            this.currentPage,
-                            this.currentPage +1,
-                            this.currentPage +2,
-                            this.currentPage +3,
+                            cp -3,
+                            cp -2,
+                            cp -1,
+                            cp,
+                            cp +1,
+                            cp +2,
+                            cp +3,
                         ];
                         return arr
                     } else {
@@ -189,6 +168,84 @@ export default {
             }
         },
     },
+    methods:{
+        search(index){
+            let currentPage;
+            if(index==1){
+                this.currentPage = 1;
+                currentPage=1;
+            }else if(index==this.pages){
+                this.currentPage = this.pages;
+                currentPage=this.pages;
+            }else{
+                this.currentPage = index;  
+                currentPage=index;
+            }
+            if(this.currentPage==null){
+                currentPage=1
+            }
+            //  this.$set(this.currentPage,index)
+            console.log(this.currentPage)
+            let _this=this;
+            this.axios({
+                        method: 'get',     
+                        url: "http://localhost:8080/bbj/goods/getAll",        
+                        params:{
+                            title:decodeURIComponent(_this.title),
+                            page:currentPage,
+                            pnumber:_this.pnumber,
+                            cnumber:_this.cnumber
+                        },
+                        data:decodeURI()      
+                    }).then (function (response) {
+                        _this.Newlists=response.data.result.data;
+                        console.log(response.data)
+                    }).catch (function (error) {
+                        console.log(error.data);
+                        _this.message = error.data;
+            });
+            // let title=this.title
+            // let Newlists = [];
+            // this.lists.map(function(list){
+            //  if(list.name.search(title)!=-1){
+            //     Newlists.push(list)
+            // }   
+            // })
+            // this.Newlists=Newlists;
+            // return Newlists;
+        },
+        // first() {
+        //     this.currentPage = 1;
+        //     console.log(this.currentPage)
+        // },
+        // last() {
+        //     this.currentPage = this.pages;
+        //     console.log(this.currentPage)
+        // },
+        pricechange(){
+            if(this.pnumber==0)
+            {
+                this.pnumber = 1;
+            }else if(this.pnumber==1){
+                this.pnumber = 2;
+            }else{
+                this.pnumber = 0;
+            }
+        },
+        collectchange(){
+            if(this.cnumber==0)
+            {
+                this.cnumber = 1;
+                console.log(this.cnumber)
+            }else if(this.cnumber==1){
+                this.cnumber = 2;
+                console.log(this.cnumber)
+            }else{
+                this.cnumber = 0;
+                console.log(this.cnumber)
+            }
+        }
+    },
 }
 </script>
 
@@ -199,15 +256,21 @@ export default {
 .head-search .searchandfind .search{margin-left: 15px;height: 40px;width: 500px;border: solid 1px rgb(0, 143, 169);  }
 .head-search .searchandfind .search-button{font-size: 17px;line-height: 30px;height: 40px;width: 100px;border: none;background: rgb(0, 143, 169);color: floralwhite;}
 li{list-style: none;}
-.main-search{margin: 0 auto; width: 1200px; background-color: rgb(255, 255, 255);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;}
-.main-search li{margin-left:6px; width: 290px;height:400px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
+.showGoods-sort{margin: 0 auto;width: 1200px;height: 50px;background-color: rgb(0, 143, 169);color: white;border: 1px solid rgb(0, 133, 143);}
+.showGoods{margin-left: 10px; width:200px;height: 50px;display: flex;line-height: 50px;}
+.showGoods div{margin-left: 5px;margin-top: auto;margin-bottom: auto; width:50px;height: 35px;border: 0.5px solid rgba(7, 104, 86, 0.603);background-color: rgb(9, 117, 136); color: rgb(248, 248, 248);line-height: 35px;text-align: center;}
+.main-search{margin: 20px auto; width: 1200px; background-color: rgb(255, 255, 255);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;}
+.main-search li{margin-top: 5px; margin-left:6px; width: 290px;height:400px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
 .black-color{color: black;}
 .main-search-size1{margin-top: 10px; width: 250px;height: 270px;}
 .main-search-size1 .image-form{width: 250px;height: 250px;margin-right: auto; margin-left: auto; border-radius: 10px;}
-.main-search-size2{margin-top: 10px; width: 250px;height: 70px;color: rgb(102, 102, 102);text-overflow:ellipsis;overflow:hidden;white-space: nowrap;}
-.collect-and-thumb1{width:200px;height: 30px;}
+.main-search-size2{margin-top: 10px; width: 250px;height: 70px;color: rgb(102, 102, 102);}
+.main-search-size2 span{text-overflow:ellipsis;overflow:hidden;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:2; }
+.collect-and-thumb1{width:200px;height: 30px;display: flex;line-height: 30px;}
+.likes-number{width: 20px;height: 30px; color: rgb(128, 128, 128);}
+.price-number{width: 155px;height: 30px; color: rgb(165, 165, 165);text-align: right;}
 .page-b{margin-top: 10px; width: 100%;height: 50px;}
 .page-b .page{margin: 0 auto; width: 500px;height: 40px;display: flex;}
-.page-littlebox{width: 40px;height: 40px;line-height: 40px;text-align: center; background-color: rgb(209, 209, 209);border: 1px solid rgb(199, 199, 199);}
+.page-littlebox{width: 40px;height: 40px;line-height: 40px;text-align: center; background-color: rgba(0, 144, 169, 0.678);border: 1px solid rgb(22, 63, 54);}
 .white-box{width: 40px;height: 40px;}
 </style>
