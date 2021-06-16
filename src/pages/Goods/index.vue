@@ -1,7 +1,7 @@
 <template>
   <div class="specific-goods">
         <img :src="image" alt="" class="img-size">
-        <span>{{id}}</span>
+        <span>{{goodId}}</span>
   </div>
 </template>
 
@@ -10,12 +10,12 @@ import { eventBus } from '../../main'
 export default {
     data(){
         return{
-            id:0,
+            goodId:0,
             image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'
         }
     },
      created() {//钩子函数，初始化数据
-     this.id = this.$route.query.id;
+     this.goodId = this.$route.query.goodId;
      },
      mounted:function(){
       let _this=this;

@@ -2,7 +2,7 @@
     <div class="all-search">
         <div class="head-search">
             <div class="searchandfind">
-                <div><input type="text" name="search" class="search" v-model="title"  @keyup.enter="search"></div>
+                <div><input type="text" name="search" class="search" v-model="title"  @keyup.enter="search(1)"></div>
                  <div><button @click="search(1)" class="search-button">搜索</button></div>
              </div>
          </div>
@@ -26,7 +26,7 @@
          </div>
         <div class="main-search">
             <li v-for="(v,i) in Newlists" :key="i">
-                <router-link to="/Goods" class="dlt_ black-color main-search-size1">
+                <router-link :to="{path: 'goods',query:{goodId:v.id}}" class="dlt_ black-color main-search-size1">
                     <img :src="v.pictureLink" alt="" class="image-form">
                 </router-link>
                 <div class="collect-and-thumb1">
@@ -88,7 +88,6 @@ export default {
     },
     mounted:function(){
       let _this=this;
-      let cp=this.currentPage;
       this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/getInformation",
@@ -101,26 +100,6 @@ export default {
                 console.log(error.data);
                 _this.message = error.data;
       });
-       if(this.pages <= 9){//页数小于9全部显示
-                this.firstPage = true;
-                this.lastPage = true;
-                this.pointN = false;
-                this.pointL = false;
-        }else {
-            if(cp< 8){//小于9页时
-                this.firstPage = true;
-                this.lastPage = true;
-            } 
-            if(cp>=8){//当前页大于8页
-               this.firstPage = true;
-                this.lastPage = true;
-                if(cp + 2 < this.pages){//五条中显示前两页和后两页
-                if(cp < this.pages){
-                    this.lastPage = true;
-                    }
-                } 
-            }
-        }
     
   },
   computed:{ pageArr:function () {
@@ -214,20 +193,14 @@ export default {
             // this.Newlists=Newlists;
             // return Newlists;
         },
-        // first() {
-        //     this.currentPage = 1;
-        //     console.log(this.currentPage)
-        // },
-        // last() {
-        //     this.currentPage = this.pages;
-        //     console.log(this.currentPage)
-        // },
         pricechange(){
             if(this.pnumber==0)
             {
                 this.pnumber = 1;
+                this.cnumber = 0;
             }else if(this.pnumber==1){
                 this.pnumber = 2;
+                this.cnumber = 0;
             }else{
                 this.pnumber = 0;
             }
@@ -236,13 +209,12 @@ export default {
             if(this.cnumber==0)
             {
                 this.cnumber = 1;
-                console.log(this.cnumber)
+                this.pnumber = 0;
             }else if(this.cnumber==1){
                 this.cnumber = 2;
-                console.log(this.cnumber)
+                this.pnumber = 0;
             }else{
                 this.cnumber = 0;
-                console.log(this.cnumber)
             }
         }
     },
