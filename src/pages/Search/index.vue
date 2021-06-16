@@ -2,7 +2,7 @@
     <div class="all-search">
         <div class="head-search">
             <div class="searchandfind">
-                <div><input type="text" name="search" class="search" v-model="title"  @keyup.enter="search(1)"></div>
+                <div><input type="text" name="search" class="search" v-model="title"  @keyup.enter="search(1),employ()"></div>
                  <div><button @click="search(1)" class="search-button">搜索</button></div>
              </div>
          </div>
@@ -30,7 +30,7 @@
                     <img :src="v.pictureLink" alt="" class="image-form">
                 </router-link>
                 <div class="collect-and-thumb1">
-                <i class="iconfont iconfont-setting1" :class="icon1" @click="addcollect(i)" :style="v.cselect==0?'color:black;':'color:red;'"></i>
+                <i class="iconfont iconfont-setting1" :class="icon1" @click="decidecollect(v.id)" :style="v.cselect==0?'color:black;':'color:red;'"></i>
                 <div class="likes-number">{{v.likes}}</div>
                 <!-- <i class="iconfont iconfont-setting2" :class="icon2"></i>{{v.tnumber}} -->
                 <div class="price-number">
@@ -45,14 +45,14 @@
         <div class="page-b">
                     <div class="page" v-if="pages !== 1">
                         <span @click="search(1)">
-                            <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">1</div></router-link></span>
+                            <router-link :to="{path: 'search',query:{title:title}}" class="dlt_ grey-color"><div class="page-littlebox">1</div></router-link></span>
                         <span class="white-box"  v-if="pages>1"></span>
                         <span v-for="(page,i) in pageArr" :key=i v-bind:class="[{active : page == currentPage},{point : page == '...'}]"  @click="search(page)">
-                                <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">{{page}}</div></router-link>
+                                <router-link :to="{path: 'search',query:{title:title}}" class="dlt_ grey-color"><div class="page-littlebox">{{page}}</div></router-link>
                         </span>
                         <span class="white-box"  v-if="pages>1"></span>
                         <span @click="search(pages)" v-if="pages>1">
-                            <router-link :to="{path: 'search',query:{title:title,cnumber:cnumber,pumber:pnumber}}" class="dlt_ grey-color"><div class="page-littlebox">{{pages}}</div></router-link></span>
+                             <router-link :to="{path: 'search',query:{title:title}}" class="dlt_ grey-color"><div class="page-littlebox">{{pages}}</div></router-link></span>
                     </div>
         </div>
     </div>
@@ -68,7 +68,7 @@ export default {
             icon1:'icon-shoucang',
             icon2:'icon-dianzan',
           
-            pages:20,//总页数
+            pages:1,//总页数
             currentPage:1,//当前页
             lastpage:1,//是否显示最后一页
             pnumber:'0',//价格排序,0不排，1从低到高，2从高到低
@@ -142,6 +142,9 @@ export default {
         },
     },
     methods:{
+        employ(){
+         this.$router.push({path:'/search', query: { title: this.title}})
+        },
         search(index){
             console.log("价格"+this.pnumber)
             console.log("收藏 "+this.cnumber)
@@ -173,8 +176,7 @@ export default {
                         },   
                     }).then (function (response) {
                         _this.Newlists=response.data.result.data;
-                        _this.pages=_this.Newlists.length
-                        // this.$router.push({ name:'search', params: { title: _this.tittle }})
+                        _this.pages=response.data.result.count;
                         console.log(response.data)
                     }).catch (function (error) {
                         console.log(error.data);
@@ -204,6 +206,23 @@ export default {
             }else{
                 this.cnumber = '0';
             }
+        },
+        decidecollect(index){
+            console.log("这里是"+index)
+             let _this=this;
+             this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/user/changNumber",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                },  
+                data:JSON.stringify(index)           
+            }).then (function (response) {
+                console.log(response.data)
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+      });        
         }
     },
 }
@@ -230,7 +249,7 @@ li{list-style: none;}
 .likes-number{width: 20px;height: 30px; color: rgb(128, 128, 128);}
 .price-number{width: 155px;height: 30px; color: rgb(165, 165, 165);text-align: right;}
 .page-b{margin-top: 10px; width: 100%;height: 50px;}
-.page-b .page{margin: 0 auto; width: 500px;height: 40px;display: flex;}
+.page-b .page{margin: 0 auto; width: 500px;height: 40px;display: flex;justify-content: center;}
 .page-littlebox{width: 40px;height: 40px;line-height: 40px;text-align: center; background-color: rgba(0, 144, 169, 0.678);border: 1px solid rgb(22, 63, 54);}
 .white-box{width: 40px;height: 40px;}
 </style>
