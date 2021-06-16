@@ -180,7 +180,6 @@ export default {
                         console.log(error.data);
                         _this.message = error.data;
             });
-              this.$router.push({path:'/search',query:{title: _this.title}})
         },
         pricechange(){
             if(this.pnumber=='0')
