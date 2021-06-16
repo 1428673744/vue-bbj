@@ -201,7 +201,7 @@ export default {
             {
                 this.pnumber = '1';
                 this.cnumber = '0';
-            }else if(this.pnumber==1){
+            }else if(this.pnumber=='1'){
                 this.pnumber = '2';
                 this.cnumber = '0';
             }else{
@@ -213,7 +213,7 @@ export default {
             {
                 this.cnumber = '1';
                 this.pnumber = '0';
-            }else if(this.cnumber==1){
+            }else if(this.cnumber=='1'){
                 this.cnumber = '2';
                 this.pnumber = '0';
             }else{
