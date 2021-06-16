@@ -9,15 +9,15 @@
          <div class="showGoods-sort">
             <div class="showGoods">
                 <span>排序:</span>
-                <div @click="pricechange" class="box">
-                    <div @click="search(1)" >价格
+                <div @click="search(1)"  class="box">
+                    <div @click="pricechange" >价格
                     <span v-if="pnumber==0">-</span>
                     <span v-if="pnumber==1">⬆</span>
                     <span v-if="pnumber==2">⬇</span>                    
                     </div>
                     </div>
-                <div @click="collectchange" class="box">
-                    <div @click="search(1)">收藏
+                <div @click="search(1)" class="box">
+                    <div @click="collectchange">收藏
                     <span v-if="cnumber==0">-</span>
                     <span v-if="cnumber==1">⬆</span>
                     <span v-if="cnumber==2">⬇</span>
@@ -149,6 +149,8 @@ export default {
     },
     methods:{
         search(index){
+            console.log("价格"+this.pnumber)
+            console.log("收藏 "+this.cnumber)
             let currentPage;
             if(index==1){
                 this.currentPage = 1;
