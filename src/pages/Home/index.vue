@@ -40,20 +40,18 @@ export default {
       lists:[]
       }
   },
-  methods:{
-    employ(title){
-      this.$router.push({
-        path:'/search',
-        query:{title:title}
-      })
-    },
-    },
   components:{
     Nav,
     Navigation,
     Content,
   },
   methods:{
+      employ(title){
+      this.$router.push({
+        path:'/search',
+        query:{title:title}
+      })
+      },
     initRecommend(){
       let _this=this;
       this.axios({
@@ -90,7 +88,7 @@ export default {
   mounted(){
       this.initRecommend()
       this.inituser()
-  },
+  }
 }
 </script>
 

@@ -32,7 +32,7 @@ export default {
             ],
             icon1:'icon-shoucang',
             icon2:'icon-dianzan',
-             collectList:[123,237,3936]
+            collectList:[]//未登录用户为空
         }
     },
     methods:{

@@ -220,6 +220,10 @@ export default {
             }
         },
         decidecollect(index){
+            if(this.collectList.indexOf(index))
+            {
+                
+            }
              let _this=this;
              this.axios({
                 method: 'post',     
