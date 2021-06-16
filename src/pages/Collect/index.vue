@@ -5,7 +5,7 @@
             <div class="main-collect">
                 <li v-for="(v,i) in lists" :key="i">
                     <router-link :to="{path: 'goods',query:{id:v.id}}"  class="dlt_ black-color main-right-size3">
-                        <img :src="v.image" alt="" class="image-form">
+                        <img :src="v.pictureLink" alt="" class="image-form">
                     </router-link>
                     <router-link :to="{path: 'goods',query:{id:v.id}}" class="dlt_ black-color main-right-size4">
                         <span>{{v.title}}</span>

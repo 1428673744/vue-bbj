@@ -53,7 +53,23 @@ export default {
     Navigation,
     Content,
   },
-  mounted:function(){
+  methods:{
+    initRecommend(){
+      let _this=this;
+      this.axios({
+         method: 'post',     
+        url: "http://localhost:8080/bbj/home/getRecommendation",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'     
+        },              
+         }).then (function (response) {
+          console.log(response.data);
+        }).catch (function (error) {
+          console.log(error.data);
+           _this.message = error.data;
+      });
+    },
+    inituser(){
       let _this=this;
       this.axios({
                 method: 'post',     
@@ -64,12 +80,16 @@ export default {
             }).then (function (response) {
                 console.log(response.data);
                 _this.name=response.data.userAccount;
-                // console.log('我是'+_this.name)
                 eventBus.$emit("sisterSaid",_this.name);
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
       });
+    }
+  },
+  mounted(){
+      this.initRecommend()
+      this.inituser()
   },
 }
 </script>
