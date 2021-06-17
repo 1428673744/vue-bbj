@@ -6,8 +6,8 @@
             <div class="main-pwdfind">
                 请输入账号：<input type="text" v-model="pwd.userAccount"><br><br>
                 请输入密保答案：<input type="text" v-model="pwd.userAnswer"><br><br>
-                请输入新密码：<input type="password" v-model="pwd.newpassword"><br><br>
-                再次输入新密码：<input type="password" v-model="pwd.scdpassword"><br><br>
+                请输入新密码：<input type="password" v-model="pwd.newPassword"><br><br>
+                再次输入新密码：<input type="password" v-model="pwd.scdPassword"><br><br>
                  <button @click="findpwd">找回密码</button>
             </div>
         </div>
@@ -21,8 +21,8 @@ export default {
             pwd:{
             userAccount:'',
             userAnswer:'',
-            newpassword:'',
-            scdpassword:''             
+            newPassword:'',
+            scdPassword:''             
             }
         }
     },
