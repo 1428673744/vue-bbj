@@ -13,8 +13,6 @@
         </div>
         <div>年龄：<input type="number" name="" id="" v-model="user.userAge" class="changeinput"> </div>
         <div> 邮箱：<input type="text" v-model="user.userTel" class="changeinput"></div>
-        <div>您的密保问题:请问您的妈妈是谁?</div>
-        <div>密保回答：<input type="text" v-model="user.userAnswer" class="changeinput"></div>
         <div><button>修改</button></div>
         </form>
     </div>
