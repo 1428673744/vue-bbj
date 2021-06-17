@@ -53,7 +53,7 @@ export default {
             }else if(this.user.userPassword.length<6){
                 this.Pmessage='注:密码最短6位'
             }else if (!verify.test(this.user.userTel)) {
-                this.Tmessage = '邮箱格式错误'
+                this.Tmessage = '注:邮箱格式错误'
             }else{
                 this.axios({
                     method:'post',
@@ -109,7 +109,7 @@ export default {
             }
             var verify = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
             if (!verify.test(this.user.userTel)) {
-                this.Tmessage = '邮箱格式错误'
+                this.Tmessage = '注:邮箱格式错误'
             }else{
                 this.Tmessage = ''
             }

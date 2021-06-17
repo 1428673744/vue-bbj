@@ -39,11 +39,11 @@ methods:{
             if(this.pwd.userAccount==''){
                 this.Amessage='注:账号不能为空'
             }else if (!verify.test(this.pwd.userTel)) {
-                this.Tmessage='邮箱格式错误'
+                this.Tmessage='注:邮箱格式错误'
             }else if(this.pwd.newPassword!=this.pwd.scdPassword){
-                this.message='两次密码不一致'
+                this.message='注:两次密码不一致'
             }else if(this.pwd.newPassword.length<6||this.pwd.scdPassword.length<6){
-                this.message='密码最短6位'
+                this.message='注:密码最短6位'
             }else{
                 this.axios({
                     method: 'post',     
@@ -95,17 +95,17 @@ methods:{
             }
             var verify = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
             if (!verify.test(this.pwd.userTel)) {
-                this.Tmessage = '邮箱格式错误'
+                this.Tmessage = '注:邮箱格式错误'
             }else{
                 this.Tmessage = ''
             }
             if(this.pwd.newPassword.length<6&&this.pwd.scdPassword.length<6){
-                this.message='密码最短6位'
+                this.message='注:密码最短6位'
             }else{
             if(this.pwd.newPassword==this.pwd.scdPassword){
                 this.message=''
             }else{
-                this.message='两次密码不一致'
+                this.message='注:两次密码不一致'
             }
             }    
    }

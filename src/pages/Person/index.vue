@@ -12,7 +12,7 @@
             女<input type="radio" name="userSex" v-model="user.userSex" value="female"><br><br>
         </div>
         <div>年龄：<input type="number" name="" id="" v-model="user.userAge" class="changeinput"> </div>
-        <div> 邮箱：<input type="text" v-model="user.userTel" class="changeinput"></div>
+        <div> 邮箱：<input type="text" v-model="user.userTel" class="changeinput"  v-on="check()"><span class="pointInformation">{{Tmessage}}</span></div>
         <div><button>修改</button></div>
         </form>
     </div>
@@ -41,6 +41,10 @@ export default {
      methods:{
          changeif(){
            let _this=this;
+            var verify = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+           if(!verify.test(this.user.userTel)) {
+                this.Tmessage = '邮箱格式错误'
+            }else{
            this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/changeInformation",
@@ -59,6 +63,15 @@ export default {
                 _this.message = error.data;
             });   
          }
+         },
+          check(){
+            var verify = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+            if (!verify.test(this.user.userTel)) {
+                this.Tmessage = '邮箱格式错误'
+            }else{
+                this.Tmessage = ''
+            }
+        }
      },
      mounted:function(){
       let _this=this;

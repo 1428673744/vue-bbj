@@ -3,9 +3,10 @@
     <div class="password-input-box-t"></div>
     <div class="password-input"> 
       <div class="password-input-title">修改密码</div>
-      <div class="password-input-content">请输入您的旧密码:<input type="password" v-model="pwd.oldpassword"></div>
-      <div class="password-input-content">请输入您的新密码:<input type="password" v-model="pwd.newpassword"></div>
-      <div class="password-input-content">再次输入您的新密码:<input type="password" v-model="pwd.scdpassword"></div>
+      <div class="password-input-content">请输入您的旧密码:<input type="password" v-model="pwd.oldPassword"></div>
+      <div class="password-input-content">请输入您的新密码:<input type="password" v-model="pwd.newPassword" v-on="check()"></div>
+      <div class="pointInformation">{{message}}</div>
+      <div class="password-input-content">再次输入您的新密码:<input type="password" v-model="pwd.scdPassword"></div>
       <div class="password-input-content">
           <button @click="changepwd">提交</button>
       </div>
@@ -19,15 +20,21 @@ export default {
   data(){
     return{
       pwd:{
-        oldpassword:'',
-        newpassword:'',
-        scdpassword:''
-      }
+        oldPassword:'',
+        newPassword:'',
+        scdPassword:''
+      },
+      message:''
     }
   },
   methods:{
     changepwd(){
        let _this=this;
+       if(this.pwd.newPassword!=this.pwd.scdPassword){
+                this.message='注:两次密码不一致'
+        }else if(this.pwd.newPassword.length<6||this.pwd.scdPassword.length<6){
+                this.message='注:密码最短6位'
+        }else{
       this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/changePassword",
@@ -47,6 +54,18 @@ export default {
                 _this.message = error.data;
       });
     }
+    },
+    check(){
+             if(this.pwd.newPassword.length<6&&this.pwd.scdPassword.length<6){
+                this.message='注:密码最短6位'
+            }else{
+            if(this.pwd.newPassword==this.pwd.scdPassword){
+                this.message=''
+            }else{
+                this.message='注:两次密码不一致'
+            }
+     }
+   }
   },
   mounted:function(){
       let _this=this;
@@ -75,4 +94,5 @@ export default {
 .password-input-content{margin: 40px auto 0; width: 400px;height: 40px;font-size: 20px;color: white;text-align: center;}
 .password-input-content input{width: 200px;height: 20px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;}
 .password-input-content button{width: 50px;height: 30px;background-color: rgba(255, 255, 255, 0.315);border:0;outline:none;color: white;}
+.password-input .pointInformation{width: 370px; margin: 0 auto;}
 </style>
