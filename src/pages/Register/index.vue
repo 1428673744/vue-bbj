@@ -30,8 +30,8 @@ export default {
     data(){
         return {
             user:{
-            userAccount:'小明兄弟',
-            userPassword:'123',
+            userAccount:'',
+            userPassword:'',
             userSex:'male',
             userAge:10,
             userTel:'',
@@ -43,8 +43,12 @@ export default {
     methods:{
         submit(){
                let _this=this;
-            if(this.user.username === ''|| this.user.password === ''){
-                alert('账号和密码不能为空！')
+            if(this.user.userAccount === ''|| this.user.userPassword === ''||this.userTel === ''||this.userAnswer===''){
+                alert('信息未填写完整！')
+            }else if(!/^[1][3,4,5,7,8][0-9]{9}$/.test(this.user.userTel)){
+                alert('手机号格式错误')
+            }else if(this.user.userPassword.length<6){
+                alert('密码不可小于6位!')
             }else{
                 this.axios({
                     method:'post',

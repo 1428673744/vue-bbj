@@ -6,8 +6,10 @@
             <div id="login-input">
                     请输入账号：<input type="text" v-model="user.userAccount"><br><br>
                     请输入密码：<input type="password" v-model="user.userPassword"><br><br>
-                    <span @click="getVerifyCode"><img id="yzm" src="#"></span>
-                    <input type="text" v-model="code" placeholder="请输入验证码" style="width: 100px; float:center"  auto-complete="off">
+                    <div class="compare-code">
+                    <input type="text" v-model="code" placeholder="请输入验证码" auto-complete="off">
+                    <div class="compare-code-image" @click="getVerifyCode"><img :src="codesrc"></div>
+                    </div>
                     <div class="login-input-button">
                         <button @click="login">登陆</button>
                         <button @click="gofind">忘记密码</button>
@@ -33,7 +35,8 @@ export default{
             userPic:'',
             userAnswer:''
             },
-            code:''
+            code:'',
+            codesrc:''
         }
     },
     methods:{
@@ -74,8 +77,7 @@ export default{
             this.$router.push('/pwdfind');
         },
         getVerifyCode(){
-            let yzm = document.getElementById('yzm')
-            yzm.src = "http://localhost:8080/bbj/user/getCode?time="+new Date().getTime();
+           this.codesrc = "http://localhost:8080/bbj/user/getCode?time="+new Date().getTime();
         },
         userinit(){
                 let _this=this;
@@ -101,12 +103,16 @@ export default{
 </script>
 
 <style>
+input::-webkit-input-placeholder{color:#eeeeee;}
 .main-input-box{width: 100%;height: 600px;background-image: url(../../assets/background.jpg); background-size: 100% 100%;}
 .main-input-box-t{ width: 500px;height: 40px;}
 .main-input-content{margin: 0 auto; width: 500px;height: 400px;border: 1px solid rgb(250, 255, 184);background:rgba(4, 40, 46, 0.322);text-align: center;}
 .main-input-title{margin: 0 auto; width:200px;height: 80px;color: rgb(255, 255, 255);font-size: 40px;line-height: 80px;text-align: center;}
 #login-input{margin: 50px auto 0;color:rgb(255, 255, 255);font-size: 20px;}
 #login-input input{width: 200px;height: 30px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:17px;color: rgb(255, 255, 255);}
+.compare-code{margin: 0 auto; width: 240px;height: 50px;line-height: 80px;display: flex;justify-content: space-around;}
+#login-input .compare-code input{margin-top: 8px; width: 110px;height:40px;color: white;}
 .login-input-button{margin: 25px auto;width: 200px;height: 40px;display: flex;justify-content: space-around;}
 #login-input button{width: 60px;height: 30px;background-color: rgba(255, 255, 255, 0.205);border:0;outline:none;color: white;}
+
 </style>
