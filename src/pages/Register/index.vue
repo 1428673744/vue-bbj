@@ -6,7 +6,7 @@
                 用户注册
             </div>
             <div id="register-input">
-                    账号：<input type="text" v-model="user.userAccount"><br><br>{{Amessage}}
+                    账号：<input type="text" v-model="user.userAccount" v-on="check()"><div class="pointInformation">{{Amessage}}</div><br><br>
                     密码：<input type="password" v-model="user.userPassword" placeholder="注意:密码最少6位"><br><br>
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
@@ -116,12 +116,13 @@ export default {
 </script>
 
 <style>
+.pointInformation{width: 100px; font-size: 10px;}
 input::-webkit-input-placeholder{font-size: 8px;color:#616161;}
 .main-register-box{width: 100%;height: 600px;background-image: url(../../assets/background1.jpg);background-size: 100% 100%;}
 .main-input-box-t1{height: 40px;}
 .main-register-content{margin: 0 auto;  width: 400px;height: 500px;border: 1px solid rgb(252, 215, 215);background:rgba(2, 102, 95, 0.212);text-align:center;}
 .main-register-title{margin: 0 auto; width:200px;height: 70px;color: rgb(255, 255, 255);font-size: 40px;line-height: 80px;text-align: center;}
-#register-input{margin: 20px auto 0;width:300px;text-align: left;color: rgb(255, 255, 255);}
+#register-input{margin: 20px auto 0;width:380px;text-align: left;color: rgb(255, 255, 255);}
 #register-input input{background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;color: white;}
 #register-input button{width: 50px;height: 30px;background-color: rgba(255, 255, 255, 0.315);border:0;outline:none;color: white;}
 #register-input .Tel{width: 150px;height: 30px;}
