@@ -11,10 +11,10 @@
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
                     <br><br>
-                    年龄：<input type="number" name="" id="" v-model="user.userAge"><br><br>
+                    年龄：<input type="number" v-model="user.userAge" min="1" max="4"><br><br>
                     邮箱：<input type="text" v-model="user.userTel" class="Tel"><button @click="send">发送</button>
                     <br><br>
-                    验证码：<input type="number" class="codesetting"><br><br>
+                    验证码：<input type="number" class="codesetting" v-model="code"><br><br>
                     您的密保问题:请问您的妈妈是谁?<br>
                     密保回答：<input type="text" v-model="user.userAnswer"><br><br>
                     <button @click="submit">提交</button>
@@ -38,7 +38,7 @@ export default {
             userPic:'',
             userAnswer:''
             },
-            code:''
+            code:0
         }
     },
     methods:{
@@ -78,7 +78,7 @@ export default {
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
-                    data: JSON.stringify(_this.user.userTel),     
+                    data: JSON.stringify({userAccount:_this.userAccount,userTel:_this.user.userTel}),     
                 }).then(function(res){
                     if(res.data.code==200){
                         alert(res.data.msg);//验证码成功发送
@@ -105,6 +105,15 @@ export default {
                 _this.message = error.data;
       });
     },
+    computed:{
+        userAge:function(){
+            if(this.user.userAge>10)
+            {
+                return 4;
+            }
+            return 6;
+        }
+    }
 }
 </script>
 
