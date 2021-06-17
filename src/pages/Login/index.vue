@@ -6,6 +6,8 @@
             <div id="login-input">
                     请输入账号：<input type="text" v-model="user.userAccount"><br><br>
                     请输入密码：<input type="password" v-model="user.userPassword"><br><br>
+                    <span @click="getVerifyCode"><img id="yzm" src="#"></span>
+                    <input type="text" v-model="code" placeholder="请输入验证码" style="width: 100px; float:center"  auto-complete="off">
                     <div class="login-input-button">
                         <button @click="login">登陆</button>
                         <button @click="gofind">忘记密码</button>
@@ -30,7 +32,8 @@ export default{
             userTel:'',
             userPic:'',
             userAnswer:''
-            }
+            },
+            code:''
         }
     },
     methods:{
@@ -46,8 +49,9 @@ export default{
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
-                    data: JSON.stringify(_this.user),     
+                   data: JSON.stringify({user:_this.user,code:_this.code}),    
                 }).then(function(res){
+                    console.log(res.data)
                     if(res.data.result.code==200){
                     _this.userToken = res.data.data.token;//前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面
                     // 将用户token保存到vuex中
@@ -68,11 +72,14 @@ export default{
         },
         gofind(){
             this.$router.push('/pwdfind');
-        }
-    },
-    mounted:function(){
-      let _this=this;
-      this.axios({
+        },
+        getVerifyCode(){
+            let yzm = document.getElementById('yzm')
+            yzm.src = "http://localhost:8080/bbj/user/getCode?time="+new Date().getTime();
+        },
+        userinit(){
+                let _this=this;
+                this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/getInformation",
                 headers: {
@@ -84,6 +91,11 @@ export default{
                 console.log(error.data);
                 _this.message = error.data;
       });
+        }
+    },
+    mounted(){
+        this.getVerifyCode()
+        this.userinit()
     }
 }
 </script>

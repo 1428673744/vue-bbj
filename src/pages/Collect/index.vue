@@ -4,14 +4,16 @@
             <div class="main-collect-title">我的收藏</div>
             <div class="main-collect">
                 <li v-for="(v,i) in collectList" :key="i">
-                    <router-link :to="{path: 'goods',query:{id:v.id}}"  class="dlt_ black-color main-search-size3">
+                    <router-link :to="{path: 'goods',query:{goodId:v.id}}"  class="dlt_ black-color main-search-size3">
                         <img :src="v.pictureLink" alt="" class="image-form">
                     </router-link>
                     <div class="collect-and-thumb">
-                     <i class="iconfont iconfont-setting1" :class="icon1"  @click="decidecollect(v.id)" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'"></i>
+                    <router-link :to="{path: 'collect'}" class="dlt_" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
+                     <i class="iconfont iconfont-setting1" :class="icon1"  @click="decidecollect(v.id)" ></i>
+                    </router-link>
                      <div class="likes-number">{{v.likes}}</div>
                     </div>
-                    <router-link :to="{path: 'goods',query:{id:v.id}}" class="dlt_ black-color main-search-size4">
+                    <router-link :to="{path: 'goods',query:{goodId:v.id}}" class="dlt_ black-color main-search-size4">
                         <span>{{v.title}}</span>
                     </router-link>
                 </li>
@@ -33,7 +35,7 @@ export default {
         }
     },
     methods:{
-          decidecollect(index){
+           decidecollect(index){
             let arr=[];
             for (let index = 0; index < this.collectList.length; index++) {
                   arr.push(this.collectList[index].id)
@@ -55,11 +57,16 @@ export default {
                 data:JSON.stringify({index:index,iscollect:_this.iscollect})           
             }).then (function (response) {
                 console.log(response.data)
+                if(response.data.code==200)
+                {
+                   alert(response.data.msg)  
+                   _this.$router.go(0)
+                }              
             }).catch (function (error) {
                 console.log(error.data);
-                 _this.message = error.data;
-             });
-          }        
+                _this.message = error.data;
+        });  
+        },
     },
     mounted:function(){
       let _this=this;
@@ -100,8 +107,8 @@ li{list-style: none;}
 .main-collect-box{width: 100%;min-height: 600px; background-color: rgba(40, 247, 130, 0.178);}
 .main-collect-content{margin: 0 auto; width: 1000px;border: 1px solid rgba(178, 207, 203, 0.301);}
 .main-collect-title{margin: 0 auto;font-size: 40px;color: rgba(17, 184, 170, 0.87);}
-.main-collect{margin: 0 auto; width: 1000px; background-color: rgba(6, 109, 112, 0.13);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-between;}
-.main-collect li{width: 240px;height:320px;border: 1px solid rgba(9, 153, 141, 0.329);display: flex;flex-wrap: wrap;justify-content: center;}
+.main-collect{margin: 0 auto; width: 1000px; background-color: rgba(6, 109, 112, 0.13);border: 5px solid rgba(10, 113, 117, 0.349);display: flex;flex-wrap: wrap;}
+.main-collect li{width: 240px;height:320px;border: 5px solid rgba(9, 153, 141, 0.329);display: flex;flex-wrap: wrap;justify-content: center;}
 .main-collect li .collect-and-thumb{width:200px;height: 30px;display: flex;line-height: 30px;}
 .main-search-size3{margin-top: 10px; width: 210px;height: 210px;}
 .main-search-size3 .image-form{width: 210px;height: 210px;margin-right: auto; margin-left: auto; border-radius: 10px;}

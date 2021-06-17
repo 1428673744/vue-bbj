@@ -181,6 +181,7 @@ export default {
                             cnumber:_this.cnumber
                         },   
                     }).then (function (response) {
+                        console.log(response.data)
                         _this.Newlists=response.data.result.data;
                         _this.pages=response.data.result.count;
                         console.log(_this.Newlists)
@@ -238,7 +239,7 @@ export default {
                 if(response.data.code==200)
                 {
                    alert(response.data.msg)  
-                   _this.$router.go(0)
+                   _this.collectinit()//刷新用户收藏列表
                 }              
             }).catch (function (error) {
                 console.log(error.data);
@@ -254,7 +255,8 @@ export default {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
             }).then (function (response) {
-                _this.collectList=response.data.data
+                _this.collectList=response.data.data;
+                _this.idList=[];
                 for (let index = 0; index < _this.collectList.length; index++) {
                 _this.idList.push(_this.collectList[index].id)
                 }

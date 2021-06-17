@@ -18,13 +18,15 @@
 </template>
 
 <script>
+import { eventBus } from '../../main'
 export default {
     data(){
         return {
             icon1:'icon-shoucang',
             collectList:[],//未登录用户为空，用户的收藏列表
             newLists:[],//全部的推荐商品列表
-            idList:[]//收藏的商品id列表
+            idList:[],//收藏的商品id列表
+            name:''
         }
     },
     methods:{
@@ -82,12 +84,15 @@ export default {
          }).then (function (response) {
           console.log(response.data);
           _this.newLists=response.data.data
+          if(_this.name!=null){
+              _this.collectinit()
+          }
         }).catch (function (error) {
           console.log(error.data);
            _this.message = error.data;
         });
        },
-        collectinit(){
+       collectinit(){
             let _this=this;
             this.axios({
                 method: 'post',     
@@ -96,10 +101,12 @@ export default {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
             }).then (function (response) {
-                _this.collectList=response.data.data
+                _this.collectList=response.data.data;
+                _this.idList=[];
                 for (let index = 0; index < _this.collectList.length; index++) {
                 _this.idList.push(_this.collectList[index].id)
                 }
+                console.log(_this.idList)
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
@@ -113,7 +120,13 @@ export default {
     },
     mounted(){
         this.initRecommend()
-    }
+    },
+    created(){
+    eventBus.$on("sisterSaid",message=>{
+      this.name = message;
+      console.log(this.name)
+    })
+  },
 
 }
 </script>
