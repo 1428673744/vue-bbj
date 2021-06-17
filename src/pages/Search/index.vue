@@ -233,7 +233,7 @@ export default {
                 },  
                 data:JSON.stringify({index:index,iscollect:_this.iscollect})           
             }).then (function (response) {
-                console.log(response.data.code)
+                console.log(response.data)
                 if(response.data.code==200)
                 {
                    alert(response.data.msg)  
