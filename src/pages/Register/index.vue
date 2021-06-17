@@ -36,7 +36,7 @@ export default {
             userPic:'',
             userAnswer:''
             },
-            code:null,
+            code:'',
             Amessage:'',
             Pmessage:'',
             Tmessage:''
@@ -44,13 +44,16 @@ export default {
     },
     methods:{
         submit(){
-               let _this=this;
-            if(this.user.userAccount === ''|| this.user.userPassword === ''||this.userTel === ''||this.userAnswer===''){
-                alert('信息未填写完整！')
-            }else if(!/^[1][3,4,5,7,8][0-9]{9}$/.test(this.user.userTel)){
-                alert('手机号格式错误')
+            let _this=this;
+            var verify = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+             if(this.user.userAccount==''){
+                this.Amessage='注:账号不能为空'
+            }else if(this.user.userPassword==''){
+                this.Pmessage='注:密码不能为空'
             }else if(this.user.userPassword.length<6){
-                alert('密码不可小于6位!')
+                this.Pmessage='注:密码最短6位'
+            }else if (!verify.test(this.user.userTel)) {
+                this.Tmessage = '邮箱格式错误'
             }else{
                 this.axios({
                     method:'post',

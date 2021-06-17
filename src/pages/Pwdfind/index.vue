@@ -25,7 +25,7 @@ export default {
             userTel:'',
             newPassword:'',
             scdPassword:'',
-            emailCode:null          
+            emailCode:''         
             },
             Amessage:'',
             Tmessage:'',
@@ -42,7 +42,7 @@ methods:{
                 this.Tmessage='邮箱格式错误'
             }else if(this.pwd.newPassword!=this.pwd.scdPassword){
                 this.message='两次密码不一致'
-            }else if(this.pwd.newPassword.length<=6||this.pwd.scdPassword.length<=6){
+            }else if(this.pwd.newPassword.length<6||this.pwd.scdPassword.length<6){
                 this.message='密码最短6位'
             }else{
                 this.axios({
@@ -99,7 +99,7 @@ methods:{
             }else{
                 this.Tmessage = ''
             }
-            if(this.pwd.newPassword.length<=6&&this.pwd.scdPassword.length<=6){
+            if(this.pwd.newPassword.length<6&&this.pwd.scdPassword.length<6){
                 this.message='密码最短6位'
             }else{
             if(this.pwd.newPassword==this.pwd.scdPassword){
