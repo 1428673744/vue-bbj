@@ -4,8 +4,8 @@
         <div class="main-input-content">
             <div class="main-input-title">用户登陆</div>
             <div id="login-input">
-                    请输入账号：<input type="text" v-model="user.userAccount"><br><br>
-                    请输入密码：<input type="password" v-model="user.userPassword"><br><br>
+                    请输入账号：<input type="text" v-model="user.userAccount" placeholder="注意:账号不能为空"><br><br>
+                    请输入密码：<input type="password" v-model="user.userPassword" placeholder="注意:密码不能为空"><br><br>
                     <div class="compare-code">
                     <input type="text" v-model="code" placeholder="请输入验证码" auto-complete="off">
                     <div class="compare-code-image" @click="getVerifyCode"><img :src="codesrc"></div>
@@ -27,8 +27,8 @@ export default{
     data(){
         return{
             user:{
-            userAccount:'小明兄弟',
-            userPassword:'123',
+            userAccount:'',
+            userPassword:'',
             userSex:'male',
             userAge:10,
             userTel:'',
@@ -43,7 +43,7 @@ export default{
         ...mapMutations(['changeLogin']),
         login(){
             let _this=this;
-            if(this.user.username === ''|| this.user.password === ''){
+            if(this.user.userAccount === ''|| this.user.userPassword === ''){
                 alert('账号和密码不能为空！')
             }else{
                 this.axios({
@@ -103,7 +103,7 @@ export default{
 </script>
 
 <style>
-input::-webkit-input-placeholder{color:#eeeeee;}
+input::-webkit-input-placeholder{font-size: 8px;color:#616161;}
 .main-input-box{width: 100%;height: 600px;background-image: url(../../assets/background.jpg); background-size: 100% 100%;}
 .main-input-box-t{ width: 500px;height: 40px;}
 .main-input-content{margin: 0 auto; width: 500px;height: 400px;border: 1px solid rgb(250, 255, 184);background:rgba(4, 40, 46, 0.322);text-align: center;}

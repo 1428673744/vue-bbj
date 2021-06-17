@@ -57,7 +57,7 @@ export default {
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
-                    data: JSON.stringify({user:_this.user,code:_this.code}),     
+                    data: JSON.stringify({user:_this.user,emailCode:_this.code}),     
                 }).then(function(res){
                     if(res.data.code==200){
                         alert(res.data.msg);//用户成功注册
@@ -72,6 +72,7 @@ export default {
             }
         },
         send(){
+             let _this=this;
             this.axios({
                     method:'post',
                     url:'http://localhost:8080/bbj/user/setMail',
@@ -109,7 +110,7 @@ export default {
 </script>
 
 <style>
-input::-webkit-input-placeholder{color:#f7f7f7;}
+input::-webkit-input-placeholder{font-size: 8px;color:#616161;}
 .main-register-box{width: 100%;height: 600px;background-image: url(../../assets/background1.jpg);background-size: 100% 100%;}
 .main-input-box-t1{height: 40px;}
 .main-register-content{margin: 0 auto;  width: 400px;height: 500px;border: 1px solid rgb(252, 215, 215);background:rgba(2, 102, 95, 0.212);text-align:center;}
