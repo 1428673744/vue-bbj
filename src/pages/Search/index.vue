@@ -234,7 +234,11 @@ export default {
                 data:JSON.stringify({index:index,iscollect:_this.iscollect})           
             }).then (function (response) {
                 console.log(response.data.code)
-                alert(res)
+                if(response.data.code==200)
+                {
+                   alert(response.data.msg)  
+                }
+               
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
