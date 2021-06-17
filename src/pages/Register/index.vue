@@ -65,6 +65,7 @@ export default {
                 }).then(function(res){
                     if(res.data.code==200){
                         alert(res.data.msg);//用户成功注册
+                        _this.$router.push('/login');
                     }else{
                         alert(res.data.msg);//用户已经存在
                     }
