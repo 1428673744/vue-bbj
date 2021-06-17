@@ -25,6 +25,7 @@
             </div>
          </div>
         <div class="main-search">
+            <div class="say-sorry" v-if="Newlists.length==0">抱歉，未找到所搜商品</div>
             <li v-for="(v,i) in Newlists" :key="i">
                 <router-link :to="{path: 'goods',query:{goodId:v.id}}" class="dlt_ black-color main-search-size1">
                     <img :src="v.pictureLink" alt="" class="image-form">
@@ -182,7 +183,7 @@ export default {
                     }).then (function (response) {
                         _this.Newlists=response.data.result.data;
                         _this.pages=response.data.result.count;
-                        console.log(response.data)
+                        console.log(_this.Newlists)
                     }).catch (function (error) {
                         console.log(error.data);
                         _this.message = error.data;
@@ -237,8 +238,8 @@ export default {
                 if(response.data.code==200)
                 {
                    alert(response.data.msg)  
-                }
-               
+                   _this.$router.go(0)
+                }              
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
@@ -292,7 +293,8 @@ li{list-style: none;}
 .showGoods-sort{margin: 0 auto;width: 1200px;height: 50px;background-color: rgb(0, 143, 169);color: white;border: 1px solid rgb(0, 133, 143);}
 .showGoods{margin-left: 10px; width:200px;height: 50px;display: flex;line-height: 50px;}
 .showGoods .box{margin-left: 5px;margin-top: auto;margin-bottom: auto; width:50px;height: 35px;border: 0.5px solid rgba(7, 104, 86, 0.603);background-color: rgb(9, 117, 136); color: rgb(248, 248, 248);line-height: 35px;text-align: center;}
-.main-search{margin: 20px auto; width: 1200px; background-color: rgb(255, 255, 255);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;}
+.main-search{margin: 20px auto; width: 1200px; min-height: 30px; background-color: rgb(255, 255, 255);border: 1px solid rgb(0, 143, 169);display: flex;flex-wrap: wrap;}
+.main-search .say-sorry{width: 1000px;height: 30px;color: rgb(0, 133, 143);line-height: 30px;}
 .main-search li{margin-top: 5px; margin-left:6px; width: 290px;height:400px;border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-around;}
 .black-color{color: black;}
 .main-search-size1{margin-top: 10px; width: 250px;height: 270px;}

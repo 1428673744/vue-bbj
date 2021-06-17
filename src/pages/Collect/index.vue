@@ -97,7 +97,7 @@ export default {
     
 <style>
 li{list-style: none;}
-.main-collect-box{width: 100%;height: 600px; background-color: rgba(40, 247, 130, 0.178);}
+.main-collect-box{width: 100%;min-height: 600px; background-color: rgba(40, 247, 130, 0.178);}
 .main-collect-content{margin: 0 auto; width: 1000px;border: 1px solid rgba(178, 207, 203, 0.301);}
 .main-collect-title{margin: 0 auto;font-size: 40px;color: rgba(17, 184, 170, 0.87);}
 .main-collect{margin: 0 auto; width: 1000px; background-color: rgba(6, 109, 112, 0.13);border: 1px solid rgb(179, 179, 179);display: flex;flex-wrap: wrap;justify-content: space-between;}
