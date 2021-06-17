@@ -57,7 +57,7 @@ methods:{
                     if(res.data.code==200)
                     {
                         alert(res.data.msg)
-                        _this.$router.push('/login')
+                        _this.$router.push('/login');
                     }else if(res.data.code==500){
                         alert(res.data.msg)
                     }
