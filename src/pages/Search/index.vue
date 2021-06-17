@@ -30,9 +30,13 @@
                     <img :src="v.pictureLink" alt="" class="image-form">
                 </router-link>
                 <div class="collect-and-thumb1">
-                <i class="iconfont iconfont-setting1" :class="icon1" @click="decidecollect(v.id)" :style="collectList.indexOf(v.id)==-1?'color:black;':'color:red;'"></i>
+                <router-link :to="{path: 'search',query:{title:title}}" class="dlt_" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
+                    <div class="iconfont-setting">
+                            <i class="iconfont" :class="icon1" @click="decidecollect(v.id)"></i>  
+                    </div>
+                </router-link>
+               
                 <div class="likes-number">{{v.likes}}</div>
-                <!-- <i class="iconfont iconfont-setting2" :class="icon2"></i>{{v.tnumber}} -->
                 <div class="price-number">
                     {{v.price}}元
                 </div>
@@ -68,41 +72,29 @@ export default {
     data(){
         return {
             title:'饼干',
-            Newlists:[],
+            Newlists:[],//商品列表
             icon1:'icon-shoucang',
             icon2:'icon-dianzan',
-          
             pages:1,//总页数
             currentPage:1,//当前页
             lastpage:1,//是否显示最后一页
             pnumber:'0',//价格排序,0不排，1从低到高，2从高到低
-            cnumber:'0',
+            cnumber:'0',//收藏排序
             value:0,
-            collectList:[{id:123,age:2},{id:123,age:2},{id:3936,age:2}],
-            iscollect:0
+            collectList:[],
+            iscollect:0,
+            idList:[],
         } 
     },
     created() {
     this.title = this.$route.query.title;
     this.search()
     },
-    mounted:function(){
-      let _this=this;
-      this.axios({
-                method: 'post',     
-                url: "http://localhost:8080/bbj/user/getInformation",
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'     
-                },              
-            }).then (function (response) {
-                eventBus.$emit("sisterSaid",response.data.userAccount);
-            }).catch (function (error) {
-                console.log(error.data);
-                _this.message = error.data;
-      });
-    
-  },
-  computed:{ pageArr:function () {
+    mounted(){
+        this.collectinit(),
+        this.userinit()
+    },
+    computed:{ pageArr:function () {
             var arr = [];
             let cp=parseInt(this.currentPage)
             if(this.currentPage == undefined){
@@ -226,7 +218,7 @@ export default {
                   arr.push(this.collectList[index].id)
             }
             console.log(arr)
-            if(this.collectList.indexOf(index)==-1)
+            if(this.idList.indexOf(index)==-1)
             {
                 this.iscollect=0//未收藏
             }else{
@@ -241,12 +233,47 @@ export default {
                 },  
                 data:JSON.stringify({index:index,iscollect:_this.iscollect})           
             }).then (function (response) {
-                console.log(response.data)
+                console.log(response.data.code)
+                alert(res)
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
-      });        
-        }
+        });        
+        },
+        collectinit(){
+            let _this=this;
+            this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/user/getCollect",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                },              
+            }).then (function (response) {
+                _this.collectList=response.data.data
+                for (let index = 0; index < _this.collectList.length; index++) {
+                _this.idList.push(_this.collectList[index].id)
+                }
+                console.log(_this.idList)
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+            })
+      },
+      userinit(){
+        let _this=this;
+        this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/user/getInformation",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                },              
+            }).then (function (response) {
+                eventBus.$emit("sisterSaid",response.data.userAccount);
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+         });  
+      }
     },
 }
 </script>
@@ -269,6 +296,8 @@ li{list-style: none;}
 .main-search-size2{margin-top: 10px; width: 250px;height: 70px;color: rgb(102, 102, 102);}
 .main-search-size2 span{text-overflow:ellipsis;overflow:hidden;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:2; }
 .collect-and-thumb1{width:200px;height: 30px;display: flex;line-height: 30px;}
+.collect-and-thumb1 :hover{color: rgb(0, 143, 169);}
+.iconfont-setting{width: 30px;height: 30px;}
 .likes-number{width: 20px;height: 30px; color: rgb(128, 128, 128);}
 .price-number{width: 155px;height: 30px; color: rgb(165, 165, 165);text-align: right;}
 .page-b{margin-top: 10px; width: 100%;height: 50px; display: flex;justify-content: center;}
