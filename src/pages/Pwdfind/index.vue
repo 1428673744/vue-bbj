@@ -5,7 +5,7 @@
             <div class="main-pwdfind-title">找回密码</div>
             <div class="main-pwdfind">
                 请输入账号：<input type="text" v-model="pwd.userAccount"><br><br>
-                邮箱：<input type="text" v-model="pwd.userTel" class="Tel" v-on="email_blur()"><button @click="send" class="sendbutton">发送</button>
+                邮箱：<input type="text" v-model="pwd.userTel" class="Tel" v-on="email_blur()"><button @click="send" class="sendbutton">发送</button>{{message}}
                     <br><br>
                 验证码：<input type="number" class="codesetting" v-model="pwd.emailCode"><br><br>
                 请输入新密码：<input type="password" v-model="pwd.newPassword"><br><br>
@@ -27,6 +27,7 @@ export default {
             scdPassword:'',
             emailCode:0           
             },
+            message:''
         }
     },
 methods:{
@@ -57,7 +58,7 @@ methods:{
              let _this=this;
             this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/user/setMail',
+                    url:'http://localhost:8080/bbj/user/sendMail',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 

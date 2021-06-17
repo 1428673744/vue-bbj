@@ -6,7 +6,7 @@
                 用户注册
             </div>
             <div id="register-input">
-                    账号：<input type="text" v-model="user.userAccount" placeholder="注意:账号不能为空"><br><br>
+                    账号：<input type="text" v-model="user.userAccount"><br><br>{{Amessage}}
                     密码：<input type="password" v-model="user.userPassword" placeholder="注意:密码最少6位"><br><br>
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
@@ -38,7 +38,8 @@ export default {
             userPic:'',
             userAnswer:''
             },
-            code:0
+            code:null,
+            Amessage:''
         }
     },
     methods:{
@@ -75,7 +76,7 @@ export default {
              let _this=this;
             this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/user/setMail',
+                    url:'http://localhost:8080/bbj/user/sendMail',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
@@ -89,6 +90,11 @@ export default {
                 }).catch(error=>{
                     console.log(error);
             })
+        },
+        check(){
+            if(this.user.userAccount===''){
+                this.Amessage='账号不能为空'
+            }
         }
     },
     mounted:function(){
