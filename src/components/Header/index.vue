@@ -14,7 +14,7 @@
                 <router-link to="/psdchange" class="dlt_ grey-color downline">修改密码</router-link>
               </div>
             </div> 
-            <div  :style="name!=''?'display:none;':'display:block;'"><router-link to="/register" class="dlt_ grey-color">免费注册</router-link></div>
+            <div  :style="name!=null?'display:none;':'display:block;'"><router-link to="/register" class="dlt_ grey-color">免费注册</router-link></div>
           </div>
           <div class="head_personal">
             <div><router-link to="/collect" class="dlt_ grey-color">我的收藏</router-link></div>

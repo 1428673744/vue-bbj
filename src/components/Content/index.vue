@@ -5,7 +5,9 @@
                 <img :src="v.pictureLink" alt="" class="image-form">
             </router-link>
             <div class="collect-and-thumb">
+                <router-link :to="{path: 'home'}" class="dlt_" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
                 <i class="iconfont iconfont-setting1" :class="icon1"  @click="decidecollect(v.id)" :style="collectList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'"></i>
+                </router-link>
                 <div class="likes-number">{{v.likes}}</div>
             </div>
             <router-link :to="{path: 'goods',query:{goodId:v.id}}" class="dlt_ black-color main-right-size2">
@@ -19,20 +21,10 @@
 export default {
     data(){
         return {
-            lists:[
-                {id:123,title:'超级小裙子',image:'https://img.alicdn.com/bao/uploaded/i2/138071847/TB2LUnplVXXXXc9XXXXXXXXXXXX_!!138071847.png_200x200q90.jpg_.webp',cselect:0, tselect:1,cnumber:12,tnumber:2},
-                {id:233,title:'超级小裙子',likes:10,image:'https://g-search3.alicdn.com/img/bao/uploaded/i4/i1/898090209/O1CN01w4glaa1DPlSo8Tn5q_!!0-item_pic.jpg_230x230.jpg_.webp'},
-                {title:'饼干',url:'/'},
-                {title:'超级小裙子',url:'/'},
-                {title:'超级小裙子',url:'/'},
-                {title:'超级小裙子',url:'/'},
-                {title:'超级小裙子',url:'/'},
-                {title:'超级小裙子',url:'/'},
-                {title:'超级小裙子',url:'/'},
-            ],
             icon1:'icon-shoucang',
-            collectList:[],//未登录用户为空
-            newLists:[]
+            collectList:[],//未登录用户为空，用户的收藏列表
+            newLists:[],//全部的推荐商品列表
+            idList:[]//收藏的商品id列表
         }
     },
     methods:{
@@ -48,20 +40,36 @@ export default {
             console.log(this.lists[i])
         },
         decidecollect(index){
-            let _this=this;
-            this.axios({
-            method: 'post',     
-            url: "http://localhost:8080/bbj/home/changNumber",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'     
-            },  
-            data:JSON.stringify(index)           
-        }).then (function (response) {
-            console.log(response.data)
-        }).catch (function (error) {
-            console.log(error.data);
-            _this.message = error.data;
-        });        
+            let arr=[];
+            for (let index = 0; index < this.collectList.length; index++) {
+                  arr.push(this.collectList[index].id)
+            }
+            console.log(arr)
+            if(this.idList.indexOf(index)==-1)
+            {
+                this.iscollect=0//未收藏
+            }else{
+                this.iscollect=1//已收藏
+            }
+             let _this=this;
+             this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/home/changNumber",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                },  
+                data:JSON.stringify({index:index,iscollect:_this.iscollect})           
+            }).then (function (response) {
+                console.log(response.data)
+                if(response.data.code==200)
+                {
+                   alert(response.data.msg)  
+                   _this.$router.go(0)
+                }              
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+        });  
         },
         initRecommend(){
             let _this=this;
@@ -78,8 +86,25 @@ export default {
           console.log(error.data);
            _this.message = error.data;
         });
-        
-    },
+       },
+        collectinit(){
+            let _this=this;
+            this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/user/getCollect",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                },              
+            }).then (function (response) {
+                _this.collectList=response.data.data
+                for (let index = 0; index < _this.collectList.length; index++) {
+                _this.idList.push(_this.collectList[index].id)
+                }
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+            })
+        },
     },
     watch:{
         cselect:function(i){

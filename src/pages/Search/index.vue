@@ -263,7 +263,7 @@ export default {
                 console.log(error.data);
                 _this.message = error.data;
             })
-      },
+        },
       userinit(){
         let _this=this;
         this.axios({
