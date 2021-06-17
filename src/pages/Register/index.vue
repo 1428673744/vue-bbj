@@ -6,8 +6,8 @@
                 用户注册
             </div>
             <div id="register-input">
-                    账号：<input type="text" v-model="user.userAccount"><br><br>
-                    密码：<input type="password" v-model="user.userPassword"><br><br>
+                    账号：<input type="text" v-model="user.userAccount" placeholder="注意:账号不能为空"><br><br>
+                    密码：<input type="password" v-model="user.userPassword" placeholder="注意:密码最少6位"><br><br>
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
                     <br><br>
@@ -78,7 +78,7 @@ export default {
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
-                    data: JSON.stringify({userAccount:_this.userAccount,userTel:_this.user.userTel}),     
+                    data: JSON.stringify({userAccount:_this.user.userAccount,userTel:_this.user.userTel}),     
                 }).then(function(res){
                     if(res.data.code==200){
                         alert(res.data.msg);//验证码成功发送
@@ -104,21 +104,12 @@ export default {
                 console.log(error.data);
                 _this.message = error.data;
       });
-    },
-    computed:{
-        userAge:function(){
-            if(this.user.userAge>10)
-            {
-                return 4;
-            }
-            return 6;
-        }
     }
 }
 </script>
 
 <style>
-
+input::-webkit-input-placeholder{color:#f7f7f7;}
 .main-register-box{width: 100%;height: 600px;background-image: url(../../assets/background1.jpg);background-size: 100% 100%;}
 .main-input-box-t1{height: 40px;}
 .main-register-content{margin: 0 auto;  width: 400px;height: 500px;border: 1px solid rgb(252, 215, 215);background:rgba(2, 102, 95, 0.212);text-align:center;}
