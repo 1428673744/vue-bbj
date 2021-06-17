@@ -8,8 +8,10 @@
                         <img :src="v.pictureLink" alt="" class="image-form">
                     </router-link>
                     <div class="collect-and-thumb">
-                    <router-link :to="{path: 'collect'}" class="dlt_" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
-                     <i class="iconfont iconfont-setting1" :class="icon1"  @click="decidecollect(v.id)" ></i>
+                    <router-link :to="{path: 'collect'}" class="dlt_">
+                     <div class="iconfont-setting" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
+                            <i class="iconfont" :class="icon1" @click="decidecollect(v.id)"></i>  
+                    </div>
                     </router-link>
                      <div class="likes-number">{{v.likes}}</div>
                     </div>
@@ -34,8 +36,12 @@ export default {
             iscollect:0
         }
     },
+    mounted(){
+   this.collectinit()
+   this.userinit()
+     },
     methods:{
-           decidecollect(index){
+        decidecollect(index){
             let arr=[];
             for (let index = 0; index < this.collectList.length; index++) {
                   arr.push(this.collectList[index].id)
@@ -60,17 +66,36 @@ export default {
                 if(response.data.code==200)
                 {
                    alert(response.data.msg)  
-                   _this.$router.go(0)
+                   _this.collectinit()
                 }              
             }).catch (function (error) {
                 console.log(error.data);
                 _this.message = error.data;
         });  
         },
-    },
-    mounted:function(){
-      let _this=this;
-      this.axios({
+        collectinit(){
+            let _this=this;
+            this.axios({
+                method: 'post',     
+                url: "http://localhost:8080/bbj/user/getCollect",
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                },              
+            }).then (function (response) {
+                _this.collectList=response.data.data
+                _this.idList=[]
+                for (let index = 0; index < _this.collectList.length; index++) {
+                _this.idList.push(_this.collectList[index].id)
+                }
+                console.log(_this.idList)
+            }).catch (function (error) {
+                console.log(error.data);
+                _this.message = error.data;
+             });  
+        },
+        userinit(){
+            let _this=this;
+            this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/getInformation",
                 headers: {
@@ -82,23 +107,8 @@ export default {
                 console.log(error.data);
                 _this.message = error.data;
       });
-      this.axios({
-                method: 'post',     
-                url: "http://localhost:8080/bbj/user/getCollect",
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'     
-                },              
-            }).then (function (response) {
-                _this.collectList=response.data.data
-                for (let index = 0; index < _this.collectList.length; index++) {
-                _this.idList.push(_this.collectList[index].id)
-                }
-                console.log(_this.idList)
-            }).catch (function (error) {
-                console.log(error.data);
-                _this.message = error.data;
-      });  
-  },
+        }
+    },
 }
 </script>
     
@@ -109,9 +119,10 @@ li{list-style: none;}
 .main-collect-title{margin: 0 auto;font-size: 40px;color: rgba(17, 184, 170, 0.87);}
 .main-collect{margin: 0 auto; width: 1000px; background-color: rgba(6, 109, 112, 0.13);border: 5px solid rgba(10, 113, 117, 0.349);display: flex;flex-wrap: wrap;}
 .main-collect li{width: 240px;height:320px;border: 5px solid rgba(9, 153, 141, 0.329);display: flex;flex-wrap: wrap;justify-content: center;}
-.main-collect li .collect-and-thumb{width:200px;height: 30px;display: flex;line-height: 30px;}
+.main-collect li .collect-and-thumb{width:200px;height: 30px;display: flex;line-height: 30px;color: #000;}
+.collect-and-thumb .iconfont-setting{width: 30px;height: 30px;}
 .main-search-size3{margin-top: 10px; width: 210px;height: 210px;}
 .main-search-size3 .image-form{width: 210px;height: 210px;margin-right: auto; margin-left: auto; border-radius: 10px;}
-.main-search-size4{ margin-top: 10px; width: 210px;height: 70px;color: rgb(102, 102, 102);}
+.main-search-size4{ margin-top: 10px; width: 210px;height: 70px;color: rgb(1, 95, 133);}
 .main-search-size4 span{text-overflow:ellipsis;overflow:hidden;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:2;}
 </style>

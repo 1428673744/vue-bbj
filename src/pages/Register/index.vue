@@ -6,18 +6,18 @@
                 用户注册
             </div>
             <div id="register-input">
-                <form  @submit.prevent="submit">
                     账号：<input type="text" v-model="user.userAccount"><br><br>
                     密码：<input type="password" v-model="user.userPassword"><br><br>
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
                     <br><br>
                     年龄：<input type="number" name="" id="" v-model="user.userAge"><br><br>
-                    手机号：<input type="text" v-model="user.userTel"><br><br>
+                    邮箱：<input type="text" v-model="user.userTel" class="Tel"><button @click="send">发送</button>
+                    <br><br>
+                    验证码：<input type="number" class="codesetting"><br><br>
                     您的密保问题:请问您的妈妈是谁?<br>
                     密保回答：<input type="text" v-model="user.userAnswer"><br><br>
-                    <button>提交</button>
-                </form>
+                    <button @click="submit">提交</button>
             </div>
         </div>
        
@@ -37,7 +37,8 @@ export default {
             userTel:'',
             userPic:'',
             userAnswer:''
-            }
+            },
+            code:''
         }
     },
     methods:{
@@ -56,7 +57,7 @@ export default {
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
-                    data: JSON.stringify(_this.user),     
+                    data: JSON.stringify({user:_this.user,code:_this.code}),     
                 }).then(function(res){
                     if(res.data.code==200){
                         alert(res.data.msg);//用户成功注册
@@ -69,6 +70,24 @@ export default {
 
             console.log(JSON.stringify(_this.user))
             }
+        },
+        send(){
+            this.axios({
+                    method:'post',
+                    url:'http://localhost:8080/bbj/user/setMail',
+                    headers: {
+                    'Content-Type': 'application/json;charset=utf-8'     
+                    }, 
+                    data: JSON.stringify(_this.user.userTel),     
+                }).then(function(res){
+                    if(res.data.code==200){
+                        alert(res.data.msg);//验证码成功发送
+                    }else{
+                        alert(res.data.msg);//发送失败
+                    }
+                }).catch(error=>{
+                    console.log(error);
+            })
         }
     },
     mounted:function(){
@@ -96,6 +115,9 @@ export default {
 .main-register-content{margin: 0 auto;  width: 400px;height: 500px;border: 1px solid rgb(252, 215, 215);background:rgba(2, 102, 95, 0.212);text-align:center;}
 .main-register-title{margin: 0 auto; width:200px;height: 70px;color: rgb(255, 255, 255);font-size: 40px;line-height: 80px;text-align: center;}
 #register-input{margin: 20px auto 0;width:300px;text-align: left;color: rgb(255, 255, 255);}
-#register-input input{background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;}
+#register-input input{background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;color: white;}
 #register-input button{width: 50px;height: 30px;background-color: rgba(255, 255, 255, 0.315);border:0;outline:none;color: white;}
+#register-input .Tel{width: 150px;height: 30px;}
+#register-input .codesetting{width: 100px;height: 20px;}
+#register-input input::-webkit-inner-spin-button {-webkit-appearance: none; appearance: none; margin: 0;}
 </style>

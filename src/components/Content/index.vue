@@ -5,8 +5,10 @@
                 <img :src="v.pictureLink" alt="" class="image-form">
             </router-link>
             <div class="collect-and-thumb">
-                <router-link :to="{path: 'home'}" class="dlt_" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
-                <i class="iconfont iconfont-setting1" :class="icon1"  @click="decidecollect(v.id)" :style="collectList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'"></i>
+                <router-link :to="{path: 'home'}" class="dlt_">
+                 <div class="iconfont-setting" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
+                            <i class="iconfont" :class="icon1" @click="decidecollect(v.id)"></i>  
+                    </div>
                 </router-link>
                 <div class="likes-number">{{v.likes}}</div>
             </div>
@@ -26,52 +28,43 @@ export default {
             collectList:[],//未登录用户为空，用户的收藏列表
             newLists:[],//全部的推荐商品列表
             idList:[],//收藏的商品id列表
-            name:''
+            name:null
         }
     },
     methods:{
-        addcollect(i){
-            console.log(this.lists[i])
-            if(i==0){
-                console.log("进行收藏");
-                this.lists[i].cselect=1
-            }else{
-                console.log("取消收藏");
-                this.lists[i].cselect=0
-            }
-            console.log(this.lists[i])
-        },
         decidecollect(index){
-            let arr=[];
-            for (let index = 0; index < this.collectList.length; index++) {
-                  arr.push(this.collectList[index].id)
-            }
-            console.log(arr)
-            if(this.idList.indexOf(index)==-1)
+            if(this.name==null||this.name=='')
             {
-                this.iscollect=0//未收藏
+                alert("您未登录，禁止收藏!请前往登陆界面....")
+                this.$router.push('/login')
+                this.$router.go(1)
             }else{
-                this.iscollect=1//已收藏
-            }
-             let _this=this;
-             this.axios({
-                method: 'post',     
-                url: "http://localhost:8080/bbj/home/changNumber",
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'     
-                },  
-                data:JSON.stringify({index:index,iscollect:_this.iscollect})           
-            }).then (function (response) {
-                console.log(response.data)
-                if(response.data.code==200)
+                if(this.idList.indexOf(index)==-1)
                 {
-                   alert(response.data.msg)  
-                   _this.$router.go(0)
-                }              
-            }).catch (function (error) {
-                console.log(error.data);
-                _this.message = error.data;
-        });  
+                    this.iscollect=0//未收藏
+                }else{
+                    this.iscollect=1//已收藏
+                }
+                let _this=this;
+                    this.axios({
+                    method: 'post',     
+                    url: "http://localhost:8080/bbj/home/changNumber",
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'     
+                    },  
+                    data:JSON.stringify({index:index,iscollect:_this.iscollect})           
+                }).then (function (response) {
+                    if(response.data.code==200)
+                    {
+                        alert(response.data.msg)  
+                        _this.collectinit()
+                    }              
+                }).catch (function (error) {
+                    console.log(error.data);
+                    _this.message = error.data;
+            });  
+            }
+ 
         },
         initRecommend(){
             let _this=this;
@@ -84,7 +77,7 @@ export default {
          }).then (function (response) {
           console.log(response.data);
           _this.newLists=response.data.data
-          if(_this.name!=null){
+          if(_this.name!=null&&_this.name!=''){
               _this.collectinit()
           }
         }).catch (function (error) {

@@ -31,8 +31,8 @@
                     <img :src="v.pictureLink" alt="" class="image-form">
                 </router-link>
                 <div class="collect-and-thumb1">
-                <router-link :to="{path: 'search',query:{title:title}}" class="dlt_" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
-                    <div class="iconfont-setting">
+                <router-link :to="{path: 'search',query:{title:title}}" class="dlt_" >
+                    <div class="iconfont-setting" :style="idList.indexOf(v.id)==-1?'color:grey;':'color:rgb(15, 145, 168);'">
                             <i class="iconfont" :class="icon1" @click="decidecollect(v.id)"></i>  
                     </div>
                 </router-link>
