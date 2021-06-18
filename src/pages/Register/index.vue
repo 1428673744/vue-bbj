@@ -99,7 +99,7 @@ export default {
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
-                    data: JSON.stringify({userAccount:_this.user.userAccount,userTel:_this.user.userTel}),     
+                    data: JSON.stringify({userTel:_this.user.userTel}),     
                 }).then(function(res){
                     if(res.data.code==200){
                         alert(res.data.msg);//验证码成功发送
