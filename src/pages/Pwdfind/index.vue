@@ -5,7 +5,9 @@
             <div class="main-pwdfind-title">找回密码</div>
             <div class="main-pwdfind">
                 请输入账号：<input type="text" v-model="pwd.userAccount" v-on="check()"><span class="pointInformation">{{Amessage}}</span><br><br>
-                邮箱：<input type="text" v-model="pwd.userTel" class="Tel"><button @click="send" class="sendbutton">发送</button><span class="pointInformation">{{Tmessage}}</span>
+                邮箱：<input type="text" v-model="pwd.userTel" class="Tel"><button @click="send" class="sendbutton" v-if="isTimes==false">发送</button>
+                <button  class="sendbutton" v-if="isTimes==true">{{times}}</button>
+                <span class="pointInformation">{{Tmessage}}</span>
                     <br><br>
                 验证码：<input type="number" class="codesetting" v-model="pwd.emailCode"><br><br>
                 请输入新密码：<input type="password" v-model="pwd.newPassword"><span class="pointInformation">{{message}}</span><br><br>
@@ -31,6 +33,7 @@ export default {
             Tmessage:'',
             message:'',
             times: 60,//倒计时
+            isTimes:false
         }
     },
 methods:{
@@ -71,6 +74,14 @@ methods:{
          },
             send(){
              let _this=this;
+             this.isTimes = true
+              this.timer = setInterval(()=>{
+                this.times--
+                if(this.times===0){
+              this.isTimes = false
+             clearInterval(this.timer)
+              }
+            },1000)
             this.axios({
                     method:'post',
                     url:'http://localhost:8080/bbj/user/sendMail',

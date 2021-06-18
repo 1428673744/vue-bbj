@@ -12,7 +12,9 @@
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
                     <br><br>
                     年龄：<input type="number" v-model="user.userAge" min='0' max='200'><span class="pointInformation">{{Cmessage}}</span><br><br>
-                    邮箱：<input type="text" v-model="user.userTel" class="Tel"><button @click="send">发送</button><span class="pointInformation">{{Tmessage}}</span>
+                    邮箱：<input type="text" v-model="user.userTel" class="Tel"><button @click="send" v-if="isTimes==false">发送</button>
+                    <button v-if="isTimes==true">{{times}}</button>
+                    <span class="pointInformation">{{Tmessage}}</span>
                     <br><br>
                     验证码：<input type="number" class="codesetting" v-model="code"><br><br>
                     <button @click="submit">提交</button>
@@ -40,7 +42,9 @@ export default {
             Amessage:'',
             Pmessage:'',
             Tmessage:'',
-            Cmessage:''//年龄提示
+            Cmessage:'',//年龄提示
+            times:60,
+            isTimes:false
         }
     },
     methods:{
@@ -81,6 +85,14 @@ export default {
         },
         send(){
              let _this=this;
+              this.isTimes = true
+              this.timer = setInterval(()=>{
+                this.times--
+                if(this.times===0){
+              this.isTimes = false
+             clearInterval(this.timer)
+              }
+            },1000)
             this.axios({
                     method:'post',
                     url:'http://localhost:8080/bbj/user/sendMail',
