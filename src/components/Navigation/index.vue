@@ -4,9 +4,9 @@
                 <div class="select-option-firstpage">
                     <router-link to="/home"  class="dlt_ white-color">首页</router-link>
                 </div>
-                <div class="select-option-compareprice"> 
+                <!-- <div class="select-option-compareprice"> 
                     <router-link to="/compare" class="dlt_ white-color"><span>比价</span></router-link>
-                </div>
+                </div> -->
             </div>
         </div>
 </template>
