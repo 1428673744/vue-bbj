@@ -11,7 +11,7 @@
                     性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
                     女<input type="radio" name="userSex" v-model="user.userSex" value="female">
                     <br><br>
-                    年龄：<input type="number" v-model="user.userAge" min="1" max="4"><br><br>
+                    年龄：<input type="number" v-model="user.userAge" min='0' max='200'><span class="pointInformation">{{Cmessage}}</span><br><br>
                     邮箱：<input type="text" v-model="user.userTel" class="Tel"><button @click="send">发送</button><span class="pointInformation">{{Tmessage}}</span>
                     <br><br>
                     验证码：<input type="number" class="codesetting" v-model="code"><br><br>
@@ -39,7 +39,8 @@ export default {
             code:'',
             Amessage:'',
             Pmessage:'',
-            Tmessage:''
+            Tmessage:'',
+            Cmessage:''//年龄提示
         }
     },
     methods:{
@@ -54,6 +55,8 @@ export default {
                 this.Pmessage='注:密码最短6位'
             }else if (!verify.test(this.user.userTel)) {
                 this.Tmessage = '注:邮箱格式错误'
+            }else if(this.user.userAge<0){
+                this.Cmessage = '不能为负值'
             }else{
                 this.axios({
                     method:'post',
@@ -114,6 +117,11 @@ export default {
             }else{
                 this.Tmessage = ''
             }
+            if(this.user.userAge<0){
+                this.Cmessage = '不能为负值'
+            }else{
+                this.Cmessage = ''
+            }
         }
     },
     mounted:function(){
@@ -144,6 +152,7 @@ input::-webkit-input-placeholder{font-size: 8px;color:#616161;}
 #register-input .pointInformation{width: 50px; font-size: 13px;color: rgb(112, 20, 4);}
 #register-input input{background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;color: white;}
 #register-input button{width: 50px;height: 30px;background-color: rgba(255, 255, 255, 0.315);border:0;outline:none;color: white;}
+#register-input button:hover{background-color: rgb(29, 157, 173);}
 #register-input .Tel{width: 150px;height: 30px;}
 #register-input .codesetting{width: 100px;height: 20px;}
 #register-input input::-webkit-inner-spin-button {-webkit-appearance: none; appearance: none; margin: 0;}

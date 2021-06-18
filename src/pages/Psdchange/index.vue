@@ -94,5 +94,6 @@ export default {
 .password-input-content{margin: 40px auto 0; width: 400px;height: 40px;font-size: 20px;color: white;text-align: center;}
 .password-input-content input{width: 200px;height: 20px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;}
 .password-input-content button{width: 50px;height: 30px;background-color: rgba(255, 255, 255, 0.315);border:0;outline:none;color: white;}
+.password-input-content button:hover{background-color: rgb(29, 157, 173);}
 .password-input .pointInformation{width: 370px; margin: 0 auto;}
 </style>

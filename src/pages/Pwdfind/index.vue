@@ -29,7 +29,8 @@ export default {
             },
             Amessage:'',
             Tmessage:'',
-            message:''
+            message:'',
+            times: 60,//倒计时
         }
     },
 methods:{
@@ -121,6 +122,7 @@ methods:{
 .main-pwdfind{margin-left: 20px; width: 450px; color:rgb(255, 255, 255);font-size: 20px;}
 .main-pwdfind input{width: 200px;height: 30px;background:rgba(255, 255, 255, 0.39); outline:none; border:none;font-size:15px;color: rgb(255, 255, 255);}
 .main-pwdfind button{width: 70px;height: 40px;background-color: rgba(255, 255, 255, 0.205);border:0;outline:none;color: white;font-size: 16px;}
+.main-pwdfind button:hover{background-color: rgb(29, 157, 173);}
 .main-pwdfind input::-webkit-inner-spin-button {-webkit-appearance: none; appearance: none; margin: 0;}
 .main-pwdfind .Tel{width: 200px;}
 .main-pwdfind .codesetting{width: 100px;}

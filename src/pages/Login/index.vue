@@ -134,5 +134,6 @@ input::-webkit-input-placeholder{font-size: 8px;color:#616161;}
 #login-input .compare-code input{margin-top: 8px; width: 110px;height:40px;color: white;}
 .login-input-button{margin: 25px auto;width: 200px;height: 40px;display: flex;justify-content: space-around;}
 #login-input button{width: 60px;height: 30px;background-color: rgba(255, 255, 255, 0.205);border:0;outline:none;color: white;}
+#login-input button:hover{background-color: rgb(29, 157, 173);}
 #login-input .pointInformation{width: 50px; font-size: 13px;color: rgb(112, 20, 4);}
 </style>

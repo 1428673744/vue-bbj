@@ -11,14 +11,11 @@
              性别：男<input type="radio" name="userSex" v-model="user.userSex" value="male">
             女<input type="radio" name="userSex" v-model="user.userSex" value="female"><br><br>
         </div>
-        <div>年龄：<input type="number" name="" id="" v-model="user.userAge" class="changeinput"> </div>
+        <div>年龄：<input type="number" name="" id="" v-model="user.userAge" class="changeinput" min='0' max='200'> <span class="pointInformation">{{Cmessage}}</span></div>
         <div> 邮箱：<input type="text" v-model="user.userTel" class="changeinput"  v-on="check()"><span class="pointInformation">{{Tmessage}}</span></div>
         <div><button>修改</button></div>
         </form>
     </div>
-    </div>
-    <div class="person-information-image">
-
     </div>
 </div>
 </template>
@@ -35,7 +32,9 @@ export default {
             userTel:'ddd',
             userPic:'',
             userAnswer:''
-            }
+            },
+            Tmessage:'',
+            Cmessage:''
         }
      },
      methods:{
@@ -44,8 +43,10 @@ export default {
             var verify = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
            if(!verify.test(this.user.userTel)) {
                 this.Tmessage = '邮箱格式错误'
+            }else if(this.user.userAge<0){
+                this.Cmessage = '不能为负值'
             }else{
-           this.axios({
+            this.axios({
                 method: 'post',     
                 url: "http://localhost:8080/bbj/user/changeInformation",
                 headers: {
@@ -70,6 +71,11 @@ export default {
                 this.Tmessage = '邮箱格式错误'
             }else{
                 this.Tmessage = ''
+            }
+            if(this.user.userAge<0){
+                this.Cmessage = '不能为负值'
+            }else{
+                this.Cmessage = ''
             }
         }
      },
@@ -105,7 +111,8 @@ export default {
 .person-collect{width: 400px;height: 400px; background-color: rgba(153, 205, 50, 0.356);}
 .person-information-box div{margin: 0 auto; width: 500px;height: 60px;line-height: 60px;}
 .person-information-box .changeinput{width: 300px;height: 20px; background-color: rgba(0, 0, 0, 0);border:1px solid rgba(0, 0, 0, 0.479) ;outline:none;}
+.person-information-box .changeinput::-webkit-inner-spin-button {-webkit-appearance: none; appearance: none; margin: 0;}
 .person-information-box div button{margin-left: 200px; width: 50px;height: 30px;background-color: rgba(255, 255, 255, 0.315);border:0;outline:none;color: white;font-size: 18px;}
-
+.person-information-box div button:hover{background-color: rgb(29, 157, 173);}
 .person-information-image{margin-top: 40px; width: 400px;height: 400px;background-color: rgba(184, 184, 184, 0.363);}
 </style>
