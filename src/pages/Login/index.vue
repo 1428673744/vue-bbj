@@ -54,7 +54,7 @@ export default{
             }else{
                 this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/user/login',
+                    url:'http://120.79.130.29/user/login',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
@@ -83,13 +83,13 @@ export default{
             this.$router.push('/pwdfind');
         },
         getVerifyCode(){
-           this.codesrc = "http://localhost:8080/bbj/user/getCode?time="+new Date().getTime();
+           this.codesrc = "http://120.79.130.29/user/getCode?time="+new Date().getTime();
         },
         userinit(){
                 let _this=this;
                 this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getInformation",
+                url: "http://120.79.130.29/user/getInformation",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              

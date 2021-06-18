@@ -43,7 +43,7 @@ export default {
       let _this=this;
             this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getInformation",
+                url: "http://120.79.130.29/user/getInformation",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
@@ -57,7 +57,7 @@ export default {
             let _this=this;
             this.axios({
                         method: 'get',     
-                        url: "http://localhost:8080/bbj/goods/getCompare",        
+                        url: "http://120.79.130.29/goods/getCompare",        
                         params:{
                             goodId:_this.goodId
                         }  

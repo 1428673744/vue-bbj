@@ -11,7 +11,7 @@ export const eventBus = new Vue();
 Vue.use(VueAxios, axios)
 Vue.prototype.$qs = qs;
 Vue.config.productionTip = false//关闭生产提示
-axios.defaults.baseURL ="http://localhost:8080"
+axios.defaults.baseURL ="http://120.79.130.29:8080"
 axios.defaults.withCredentials=true
 
 new Vue({

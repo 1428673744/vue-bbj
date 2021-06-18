@@ -173,7 +173,7 @@ export default {
             let _this=this;
             this.axios({
                         method: 'get',     
-                        url: "http://localhost:8080/bbj/goods/getAll",        
+                        url: "http://120.79.130.29/goods/getAll",        
                         params:{
                             title:decodeURIComponent(_this.title),
                             page:currentPage,
@@ -229,7 +229,7 @@ export default {
              let _this=this;
              this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/home/changNumber",
+                url: "http://120.79.130.29/home/changNumber",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },  
@@ -250,7 +250,7 @@ export default {
             let _this=this;
             this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getCollect",
+                url: "http://120.79.130.29/user/getCollect",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
@@ -270,7 +270,7 @@ export default {
         let _this=this;
         this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getInformation",
+                url: "http://120.79.130.29/user/getInformation",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              

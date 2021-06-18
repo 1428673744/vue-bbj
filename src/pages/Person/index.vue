@@ -48,7 +48,7 @@ export default {
             }else{
             this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/changeInformation",
+                url: "http://120.79.130.29/user/changeInformation",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 }, 
@@ -83,7 +83,7 @@ export default {
       let _this=this;
            this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getInformation",
+                url: "http://120.79.130.29/user/getInformation",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              

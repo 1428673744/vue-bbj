@@ -51,7 +51,7 @@ methods:{
             }else{
                 this.axios({
                     method: 'post',     
-                    url: "http://localhost:8080/bbj/user/find",
+                    url: "http://120.79.130.29/user/find",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'     
                     },  
@@ -84,7 +84,7 @@ methods:{
             },1000)
             this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/user/sendMail',
+                    url:'http://120.79.130.29/user/sendMail',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 

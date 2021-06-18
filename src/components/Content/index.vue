@@ -48,7 +48,7 @@ export default {
                 let _this=this;
                     this.axios({
                     method: 'post',     
-                    url: "http://localhost:8080/bbj/home/changNumber",
+                    url: "http://120.79.130.29/home/changNumber",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'     
                     },  
@@ -70,7 +70,7 @@ export default {
             let _this=this;
             this.axios({
             method: 'post',     
-            url: "http://localhost:8080/bbj/home/getRecommendation",
+            url: "http://120.79.130.29/home/getRecommendation",
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'     
             },              
@@ -89,7 +89,7 @@ export default {
             let _this=this;
             this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getCollect",
+                url: "http://120.79.130.29/user/getCollect",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
@@ -126,7 +126,7 @@ export default {
 
 <style>
 li{list-style: none;}
-.main-right{width: 950px; background-color: rgba(209, 246, 255, 0.397);display: flex;flex-wrap: wrap;justify-content: space-between;}
+.main-right{width: 950px;min-height: 800px; background-color: rgba(209, 246, 255, 0.397);display: flex;flex-wrap: wrap;justify-content: space-between;}
 .main-right li{margin-top: 10px; width: 230px;height:350px;display: flex;flex-wrap: wrap;justify-content: space-around;background-color: white;border-radius: 2px; }
 .black-color{color: rgb(0, 0, 0);}
 .main-right-size1{margin-top: 5px; width: 200px;height: 200px;}

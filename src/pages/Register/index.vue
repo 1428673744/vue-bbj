@@ -64,7 +64,7 @@ export default {
             }else{
                 this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/user/register',
+                    url:'http://120.79.130.29/user/register',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
@@ -95,7 +95,7 @@ export default {
             },1000)
             this.axios({
                     method:'post',
-                    url:'http://localhost:8080/bbj/user/sendMail',
+                    url:'http://120.79.130.29/user/sendMail',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                     }, 
@@ -140,7 +140,7 @@ export default {
       let _this=this;
       this.axios({
                 method: 'post',     
-                url: "http://localhost:8080/bbj/user/getInformation",
+                url: "http://120.79.130.29/user/getInformation",
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'     
                 },              
